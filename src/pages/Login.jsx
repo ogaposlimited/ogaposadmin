@@ -2,8 +2,14 @@ import styled from "styled-components";
 
 import oga from "./oga1.png";
 import { mobile } from "../responsive";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const handleSignIn = () => {
+    // Navigate to the admin-dashboard page
+    navigate("/admin-dashboard");
+  };
   return (
     <>
       <body
@@ -14,7 +20,7 @@ const Login = () => {
           <div class="account-content">
             <div class="login-wrapper bg-img">
               <div class="login-content">
-                <form action="https://dreamspos.dreamstechnologies.com/html/template/index.html">
+                <form>
                   <div class="login-userset">
                     <div class="login-userheading">
                       <h3>Sign In</h3>
@@ -25,11 +31,7 @@ const Login = () => {
                     <div class="form-login mb-3">
                       <label class="form-label">Email Address</label>
                       <div class="form-addons">
-                        <input
-                          type="text"
-                          class="form- control"
-                          style={{ width: "93%" }}
-                        />
+                        <input type="text" class="form- control" />
                         <img
                           src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/mail.svg"
                           alt="img"
@@ -41,7 +43,6 @@ const Login = () => {
                       <div class="pass-group">
                         <input
                           type="password"
-                          style={{ width: "93%" }}
                           class="pass-input form-control"
                         />
                         <span class="fas toggle-password fa-eye-slash"></span>
@@ -69,7 +70,8 @@ const Login = () => {
                     </div>
                     <div class="form-login" style={{ width: "100%" }}>
                       <button
-                        type="submit"
+                        onClick={handleSignIn}
+                        type="button"
                         class="btn btn-login"
                         style={{ width: "100%" }}
                       >
