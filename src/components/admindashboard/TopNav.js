@@ -19,7 +19,7 @@ const TopNav = () => {
         <div class="header">
           <div class="header-left active">
             <a
-              href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+              // href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
               class="logo logo-normal"
             >
               <img
@@ -33,7 +33,7 @@ const TopNav = () => {
               />
             </a>
             <a
-              href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+              // href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
               class="logo logo-white"
             >
               <img
@@ -60,14 +60,22 @@ const TopNav = () => {
                 }}
               />
             </a>
-            <a id="toggle_btn" href="javascript:void(0);">
+            <a
+              id="toggle_btn"
+              href="javascript:void(0);"
+              onClick={(e) => {
+                e.preventDefault();
+                console.log("Mobile button clicked");
+                toggleSidebar(); // Toggle sidebar when button is clicked
+              }}
+            >
               <i data-feather="chevrons-left" class="feather-16"></i>
             </a>
           </div>
 
           <a
             id="mobile_btn"
-            class="mobile_btn"
+            className="mobile_btn"
             onClick={(e) => {
               e.preventDefault();
               toggleSidebar(); // Toggle sidebar when button is clicked

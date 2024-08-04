@@ -522,14 +522,28 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
   background-color: rgba(40, 199, 111, 0.1) !important;
   color: #28c76f !important;
 }
-.sidebar.open {
-  transform: translateX(0); /* Sidebar is fully visible */
+/* On larger screens, keep the sidebar visible */
+/* @media (min-width: 992px) {
+  .sidebar {
+    transform: translateX(0); 
+  }
+} */
+
+/* On mobile screens, adjust the width and position */
+@media (max-width: 991.9px) {
+  .sidebar {
+    width: 100%; /* Full width on mobile */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Fully visible when opened */
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%); /* Hidden off-screen when closed */
+  }
 }
 
-/* Sidebar in closed state */
-.sidebar.closed {
-  transform: translateX(-250px); /* Sidebar is hidden off-screen */
-}
 .bg-success-transparent:hover {
   background-color: rgba(40, 199, 111, 0.1) !important;
   color: #28c76f !important;
@@ -16020,7 +16034,7 @@ div#global-loader .whirly-loader:not(:required) {
   background-color: #f8f9fa;
   border-right: 1px solid transparent;
   margin-top: 0;
-  z-index: 1001;
+  z-index: 1000;
   position: fixed;
   top: 66px;
   bottom: 0;

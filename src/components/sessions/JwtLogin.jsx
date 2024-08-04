@@ -117,7 +117,6 @@ const JwtLogin = () => {
                               name="identifier"
                               onChange={handleChange}
                               class="form- control"
-                              style={{ width: "93%" }}
                             />
                             <img
                               src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/mail.svg"
@@ -133,7 +132,6 @@ const JwtLogin = () => {
                               onChange={handleChange}
                               name="password"
                               type="password"
-                              style={{ width: "93%" }}
                               class="pass-input form-control"
                             />
                             <span class="fas toggle-password fa-eye-slash"></span>
