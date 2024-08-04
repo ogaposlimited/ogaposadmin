@@ -234,5 +234,5 @@ setTimeout(function () {
       "</div>" +
       "</div>"
   );
-  loadJS("assets/js/theme-settings.js", true);
+  // loadJS("assets/js/theme-settings.js", true);
 }, 1000);

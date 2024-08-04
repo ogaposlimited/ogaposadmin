@@ -1,11 +1,12 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./oga4.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSidebar } from "./SidebarProvider";
 
 const SideNav = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [openSubmenus, setOpenSubmenus] = useState(new Set());
+  const { isSidebarOpen } = useSidebar();
+  const [openSubmenus, setOpenSubmenus] = React.useState(new Set());
 
   const toggleSubmenu = (index) => {
     const updatedSubmenus = new Set(openSubmenus);
@@ -18,7 +19,10 @@ const SideNav = () => {
   };
 
   return (
-    <div className="main-wrapper">
+    <div
+      className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}
+      id="sidebar"
+    >
       <div className="sidebar" id="sidebar">
         <div className="sidebar-inner slimscroll">
           <div id="sidebar-menu" className="sidebar-menu">

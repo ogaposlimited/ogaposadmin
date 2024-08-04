@@ -22,13 +22,16 @@ import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import routes from "./routes";
 import { AuthProvider } from "./components/contexts/JWTAuthContext";
+import { SidebarProvider } from "./components/admindashboard/SidebarProvider";
 
 function App() {
   const content = useRoutes(routes);
   return (
     <div>
       <AuthProvider>
-        <Suspense fallback={<div>Loading...</div>}>{content}</Suspense>
+        <SidebarProvider>
+          <Suspense fallback={<div>Loading...</div>}>{content}</Suspense>
+        </SidebarProvider>
       </AuthProvider>
     </div>
   );

@@ -1,14 +1,17 @@
 import { React, useEffect, useState } from "react";
 // import useFetch from "hooks/useFetch";
+
 import logo from "./oga4.png";
 import axios from "axios";
+import { useSidebar } from "./SidebarProvider";
 
 const TopNav = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { toggleSidebar } = useSidebar();
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
 
   return (
     <body>
@@ -62,7 +65,14 @@ const TopNav = () => {
             </a>
           </div>
 
-          <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+          <a
+            id="mobile_btn"
+            class="mobile_btn"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleSidebar(); // Toggle sidebar when button is clicked
+            }}
+          >
             <span class="bar-icon">
               <span></span>
               <span></span>
