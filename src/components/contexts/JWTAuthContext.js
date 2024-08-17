@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
         console.error("Response data:", response.data);
 
         try {
-          await localStorage.setItem("jwtToken", token);
+          localStorage.setItem("jwtToken", token);
           console.log("JWT Token stored in localStorage");
         } catch (error) {
           console.error("Error setting JWT token:", error);

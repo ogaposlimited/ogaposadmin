@@ -4,21 +4,16 @@ import logo from "./oga4.png";
 import axios from "axios";
 import TopNav from "../TopNav";
 import SideNav from "../SideNav";
+import Sidebars from "../Sidebars";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const AdminDashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   return (
     <div>
       <body>
         <div class="main-wrapper">
-          <TopNav />
-
           <SideNav />
+          <TopNav />
 
           <div class="page-wrapper">
             <div class="content">
@@ -40,7 +35,7 @@ const AdminDashboard = () => {
                           307,144.00
                         </span>
                       </h5>
-                      <h6>Total Sales</h6>
+                      <h6>Today's Sales</h6>
                     </div>
                   </div>
                 </div>
@@ -61,7 +56,8 @@ const AdminDashboard = () => {
                           4,385.00
                         </span>
                       </h5>
-                      <h6>Total Expense</h6>
+                      <h6>Last 30 days sales</h6>
+                      {/*}  <h6>Total Expense</h6>*/}
                     </div>
                   </div>
                 </div>
@@ -81,7 +77,8 @@ const AdminDashboard = () => {
                           ₦ 4,385.00
                         </span>
                       </h5>
-                      <h6>Outstanding Sales</h6>
+                      {/*<h6>Outstanding Sales</h6>*/}
+                      <h6>Total Sales</h6>
                     </div>
                   </div>
                 </div>
@@ -101,7 +98,89 @@ const AdminDashboard = () => {
                           ₦ 4,385.00
                         </span>
                       </h5>
-                      <h6>Outstanding Purchase</h6>
+                      <h6>Total Purchase</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                  <div class="dash-widget w-100">
+                    <div class="dash-widgetimg">
+                      <span>
+                        <img
+                          src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/dash1.svg"
+                          alt="img"
+                        />
+                      </span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                      <h5>
+                        ₦
+                        <span class="counters" data-count="307144.00">
+                          307,144.00
+                        </span>
+                      </h5>
+                      <h6>Today's Profit</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                  <div class="dash-widget dash1 w-100">
+                    <div class="dash-widgetimg">
+                      <span>
+                        <img
+                          src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/dash2.svg"
+                          alt="img"
+                        />
+                      </span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                      <h5>
+                        ₦
+                        <span class="counters" data-count="4385.00">
+                          4,385.00
+                        </span>
+                      </h5>
+                      <h6>Last 30 days profit</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                  <div class="dash-widget dash2 w-100">
+                    <div class="dash-widgetimg">
+                      <span>
+                        <img
+                          src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/dash3.svg"
+                          alt="img"
+                        />
+                      </span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                      <h5>
+                        <span class="counters" data-count="385656.50">
+                          ₦ 4,385.00
+                        </span>
+                      </h5>
+                      <h6>Total Profit</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 d-flex">
+                  <div class="dash-widget dash3 w-100">
+                    <div class="dash-widgetimg">
+                      <span>
+                        <img
+                          src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/dash4.svg"
+                          alt="img"
+                        />
+                      </span>
+                    </div>
+                    <div class="dash-widgetcontent">
+                      <h5>
+                        <span class="counters" data-count="40000.00">
+                          ₦ 4,385.00
+                        </span>
+                      </h5>
+                      <h6>Total Expenses</h6>
                     </div>
                   </div>
                 </div>
@@ -332,16 +411,13 @@ const AdminDashboard = () => {
                           <td class="action-table-data">
                             <div class="edit-delete-action">
                               <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
+                                <FaEdit className="edit-icon" />
                               </a>
                               <a
                                 class=" confirm-text p-2"
                                 href="javascript:void(0);"
                               >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
+                                <FaTrash className="delete-icon" />
                               </a>
                             </div>
                           </td>
@@ -366,16 +442,13 @@ const AdminDashboard = () => {
                           <td class="action-table-data">
                             <div class="edit-delete-action">
                               <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
+                                <FaEdit className="feather-edit" />
                               </a>
                               <a
                                 class="confirm-text p-2"
                                 href="javascript:void(0);"
                               >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
+                                <FaTrash className="feather-trash-2" />
                               </a>
                             </div>
                           </td>
@@ -400,16 +473,13 @@ const AdminDashboard = () => {
                           <td class="action-table-data">
                             <div class="edit-delete-action">
                               <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
+                                <FaEdit className="feather-edit" />
                               </a>
                               <a
                                 class=" confirm-text p-2"
                                 href="javascript:void(0);"
                               >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
+                                <FaTrash className="feather-trash-2" />
                               </a>
                             </div>
                           </td>
@@ -434,16 +504,13 @@ const AdminDashboard = () => {
                           <td class="action-table-data">
                             <div class="edit-delete-action">
                               <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
+                                <FaEdit className="feather-edit" />
                               </a>
                               <a
                                 class=" confirm-text p-2"
                                 href="javascript:void(0);"
                               >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
+                                <FaTrash className="feather-trash-2" />
                               </a>
                             </div>
                           </td>
@@ -475,16 +542,13 @@ const AdminDashboard = () => {
                                 data-bs-toggle="modal"
                                 data-bs-target="#edit-units"
                               >
-                                <i data-feather="edit" class="feather-edit"></i>
+                                <FaEdit className="feather-edit" />
                               </a>
                               <a
                                 class=" confirm-text p-2"
                                 href="javascript:void(0);"
                               >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
+                                <FaTrash className="feather-trash-2" />
                               </a>
                             </div>
                           </td>

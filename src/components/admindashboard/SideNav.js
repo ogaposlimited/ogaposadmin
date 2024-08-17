@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import logo from "./oga4.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useSidebar } from "./SidebarProvider";
 
 const SideNav = () => {
-  const { isSidebarOpen } = useSidebar();
-  const [openSubmenus, setOpenSubmenus] = React.useState(new Set());
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState(new Set());
 
   const toggleSubmenu = (index) => {
     const updatedSubmenus = new Set(openSubmenus);
@@ -19,10 +18,7 @@ const SideNav = () => {
   };
 
   return (
-    <div
-      className={`sidebar ${isSidebarOpen ? "open" : "closed"}`}
-      id="sidebar"
-    >
+    <div className="main-wrapper">
       <div className="sidebar" id="sidebar">
         <div className="sidebar-inner slimscroll">
           <div id="sidebar-menu" className="sidebar-menu">
@@ -51,10 +47,10 @@ const SideNav = () => {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/manager-dashboard">Manager Dashboard</Link>
+                          <a className="active">Manager Dashboard</a>
                         </li>
                         <li>
-                          <Link to="/sales-dashboard">Sales Dashboard</Link>
+                          <a>Sales/Staff Dashboard</a>
                         </li>
                       </ul>
                     )}
@@ -84,7 +80,9 @@ const SideNav = () => {
                           <Link to="/view-manager">Manager</Link>
                         </li>
                         <li>
-                          <Link to="/view-sales">Sales/Staff</Link>
+                          <Link to="/view-sales-operators">
+                            Staff/POS Operator
+                          </Link>
                         </li>
                       </ul>
                     )}
@@ -134,13 +132,11 @@ const SideNav = () => {
                       <ul>
                         <li>
                           <Link to="/sales-list" className="active">
-                            List Sales
+                            Sales List
                           </Link>
                         </li>
                         <li>
-                          <Link to="/add-sales" className="active">
-                            Add Sales
-                          </Link>
+                          <a className="active">Add Sales</a>
                         </li>
                         {/* <li>
                           <a
@@ -151,12 +147,15 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <Link to="/view-sales-quotation" className="active">
+                          <a
+                            // href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+                            className="active"
+                          >
                             Quotation
-                          </Link>
+                          </a>
                         </li>
                         <li>
-                          <Link to="/sales-invoice">Invoice</Link>
+                          <a>Invoice</a>
                         </li>
 
                         {/*} <li>
@@ -169,7 +168,71 @@ const SideNav = () => {
                   </li>
                 </ul>
               </li>
-
+              <li className="submenu-open">
+                <ul>
+                  <li className="submenu">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleSubmenu(19);
+                      }}
+                      className={openSubmenus.has(19) ? "subdrop active" : ""}
+                    >
+                      <i data-feather="grid"></i>
+                      <span>Points</span>
+                      <span className="menu-arrow"></span>
+                    </a>
+                    {openSubmenus.has(19) && (
+                      <ul>
+                        <li>
+                          <Link to="/view-points" className="active">
+                            All Point
+                          </Link>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </ul>
+              </li>
+              <li className="submenu-open">
+                <ul>
+                  <li className="submenu">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleSubmenu(29);
+                      }}
+                      className={openSubmenus.has(29) ? "subdrop active" : ""}
+                    >
+                      <i data-feather="grid"></i>
+                      <span>Disbursement</span>
+                      <span className="menu-arrow"></span>
+                    </a>
+                    {openSubmenus.has(29) && (
+                      <ul>
+                        <li>
+                          <Link
+                            to="/view-manager-disbursement"
+                            className="active"
+                          >
+                            Manager
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/view-sales-disbursement"
+                            className="active"
+                          >
+                            Sales
+                          </Link>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </ul>
+              </li>
               <li className="submenu-open">
                 <ul>
                   <li className="submenu">
@@ -188,14 +251,10 @@ const SideNav = () => {
                     {openSubmenus.has(12) && (
                       <ul>
                         <li>
-                          <Link to="/purchase-list" className="active">
-                            List Purchase
-                          </Link>
+                          <a className="active">List Purchase</a>
                         </li>
                         <li>
-                          <Link to="/add-purchase" className="active">
-                            Add Purchases
-                          </Link>
+                          <a className="active">Add Purchases</a>
                         </li>
                         {/*} <li>
                           <a
@@ -206,12 +265,7 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <Link
-                            to="/view-purchase-quotation"
-                            className="active"
-                          >
-                            Quotation
-                          </Link>
+                          <a className="active">Quotation</a>
                         </li>
                         {/*}  <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
@@ -219,9 +273,7 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <Link to="/view-purchase-invoice" className="active">
-                            Invoice
-                          </Link>
+                          <a>Invoice</a>
                         </li>
                         {/*} <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
@@ -238,6 +290,7 @@ const SideNav = () => {
                 <ul>
                   <li className="submenu">
                     <a
+                      href="javascript:void(0);"
                       onClick={(e) => {
                         e.preventDefault();
                         toggleSubmenu(1);
@@ -251,7 +304,7 @@ const SideNav = () => {
                     {openSubmenus.has(1) && (
                       <ul>
                         <li>
-                          <Link to="/view-expenses">Expenses</Link>
+                          <a>Expenses</a>
                         </li>
                       </ul>
                     )}
@@ -263,16 +316,16 @@ const SideNav = () => {
                 <h6 className="submenu-hdr">User Management</h6>
                 <ul>
                   <li>
-                    <Link to="/view-users">
+                    <a>
                       <i data-feather="user-check"></i>
                       <span>Users</span>
-                    </Link>
+                    </a>
                   </li>
                   <li>
-                    <Link to="/role-permission">
+                    <a>
                       <i data-feather="shield"></i>
                       <span>Roles & Permissions</span>
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -280,13 +333,14 @@ const SideNav = () => {
                 <h6 className="submenu-hdr">Pages</h6>
                 <ul>
                   <li>
-                    <Link to="/profile">
+                    <a href="/profile">
                       <i data-feather="user"></i>
                       <span>Profile</span>
-                    </Link>
+                    </a>
                   </li>
                   <li className="submenu">
                     <a
+                      href="javascript:void(0);"
                       onClick={(e) => {
                         e.preventDefault();
                         toggleSubmenu(2);
@@ -300,25 +354,28 @@ const SideNav = () => {
                     {openSubmenus.has(2) && (
                       <ul>
                         <li className="submenu submenu-two">
-                          <a href="login">
+                          <a href="/login">
                             Login
                             <span className="menu-arrow inside-submenu"></span>
                           </a>
                         </li>
 
                         <li className="submenu submenu-two">
-                          <a href="forgot-password">
+                          <a href="/forgot-password">
                             Forgot Password
                             <span className="menu-arrow inside-submenu"></span>
                           </a>
                           <ul>
                             <li>
-                              <a href="forgot-password">Forgot Password</a>
+                              <a href="/forgot-password">Forgot Password</a>
+                            </li>
+                            <li>
+                              <a>OTP</a>
                             </li>
                           </ul>
                         </li>
                         <li>
-                          <a href="reset-password">Reset Password</a>
+                          <a href="/reset-password">Reset Password</a>
                         </li>
                       </ul>
                     )}

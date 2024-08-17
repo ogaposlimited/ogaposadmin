@@ -67,9 +67,9 @@ const JwtLogin = () => {
     if (userRole === "admin") {
       navigate("/admin-dashboard");
     } else if (userRole === "manager") {
-      navigate("/manager/dashboard");
-    } else if (userRole === "sale") {
-      navigate("/sale/dashboard/default");
+      navigate("/dashboard/manager-dashboard");
+    } else if (userRole === "sales") {
+      navigate("/dashboard/sales-dashboard");
     } else {
       navigate("/session/signin"); // Redirect unauthenticated users to sign-in page
     }

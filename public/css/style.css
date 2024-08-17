@@ -533,6 +533,7 @@ ul .btn-primary:not(:disabled):not(.disabled).active:focus {
 @media (max-width: 991.9px) {
   .sidebar {
     width: 100%; /* Full width on mobile */
+    transform: translateX(-100%); /* Hidden off-screen by default */
   }
 
   .sidebar.open {

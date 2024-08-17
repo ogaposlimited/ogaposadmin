@@ -1,14 +1,23 @@
 import { React, useEffect, useState } from "react";
 // import useFetch from "hooks/useFetch";
+import { FaChevronLeft } from "react-icons/fa"; // Use this for a single chevron
+import { FaAngleDoubleLeft } from "react-icons/fa"; // Use this for double chevrons
+import { FaSearch } from "react-icons/fa";
+import { FiXCircle } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
+import { FiBell } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
+import { FaEllipsisV } from "react-icons/fa";
+import useAuth from "../hooks/useAuth";
+
+import { FiHelpCircle } from "react-icons/fi";
+
 import logo from "./oga4.png";
 import axios from "axios";
+import { useSidebar } from "./SidebarProvider";
 
 const TopNav = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
+  const { user } = useAuth(); // Access the authenticated user
 
   return (
     <body>
@@ -16,7 +25,7 @@ const TopNav = () => {
         <div class="header">
           <div class="header-left active">
             <a
-              href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+              // href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
               class="logo logo-normal"
             >
               <img
@@ -30,7 +39,7 @@ const TopNav = () => {
               />
             </a>
             <a
-              href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+              // href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
               class="logo logo-white"
             >
               <img
@@ -57,12 +66,24 @@ const TopNav = () => {
                 }}
               />
             </a>
-            <a id="toggle_btn" href="javascript:void(0);">
-              <i data-feather="chevrons-left" class="feather-16"></i>
+            <a
+              id="toggle_btn"
+              href="javascript:void(0);"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <FaChevronLeft className="chevron-icon" />
             </a>
           </div>
 
-          <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+          <a
+            id="mobile_btn"
+            className="mobile_btn"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
             <span class="bar-icon">
               <span></span>
               <span></span>
@@ -83,7 +104,7 @@ const TopNav = () => {
             <li class="nav-item nav-searchinputs">
               <div class="top-nav-search">
                 <a href="javascript:void(0);" class="responsive-search">
-                  <i class="fa fa-search"></i>
+                  <FaSearch className="search-icon" />
                 </a>
                 <form action="#" class="dropdown">
                   <div
@@ -95,7 +116,7 @@ const TopNav = () => {
                     <input type="text" placeholder="Search" />
                     <div class="search-addon">
                       <span>
-                        <i data-feather="x-circle" class="feather-14"></i>
+                        <FiXCircle className="x-circle-icon" />
                       </span>
                     </div>
                   </div>
@@ -106,7 +127,7 @@ const TopNav = () => {
                     <div class="search-info">
                       <h6>
                         <span>
-                          <i data-feather="search" class="feather-16"></i>
+                          <FaSearch className="search-icon" />
                         </span>
                         Recent Searches
                       </h6>
@@ -125,7 +146,7 @@ const TopNav = () => {
                     <div class="search-info">
                       <h6>
                         <span>
-                          <i data-feather="help-circle" class="feather-16"></i>
+                          <FiHelpCircle className="help-circle-icon" />
                         </span>
                         Help
                       </h6>
@@ -138,7 +159,7 @@ const TopNav = () => {
                     <div class="search-info">
                       <h6>
                         <span>
-                          <i data-feather="user" class="feather-16"></i>
+                          <FiUser className="user-icon" />
                         </span>
                         Customers
                       </h6>
@@ -186,7 +207,8 @@ const TopNav = () => {
                 class="dropdown-toggle nav-link"
                 data-bs-toggle="dropdown"
               >
-                <i data-feather="bell"></i>
+                <FiBell className="bell-icon" />
+
                 <span class="badge rounded-pill">2</span>
               </a>
               <div class="dropdown-menu notifications">
@@ -336,7 +358,7 @@ const TopNav = () => {
 
             <li class="nav-item nav-item-box">
               <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                <i data-feather="settings"></i>
+                <FiSettings className="settings-icon" />
               </a>
             </li>
             <li class="nav-item dropdown has-arrow main-drop">
@@ -346,10 +368,12 @@ const TopNav = () => {
                 data-bs-toggle="dropdown"
               >
                 <span class="user-info">
-                  <span class="user-letter"></span>
                   <span class="user-detail">
-                    <span class="user-name">Oga Pos Limited</span>
-                    <span class="user-role"> Admin</span>
+                    <span class="user-name">
+                      {" "}
+                      {user?.username || "Oga Pos Limited"}
+                    </span>
+                    <span class="user-role"> {user?.role || "Admin"}</span>
                   </span>
                 </span>
               </a>
@@ -357,29 +381,21 @@ const TopNav = () => {
                 <div class="profilename">
                   <div class="profileset">
                     <div class="profilesets">
-                      <h6>Oga Pos Limited</h6>
-                      <h5> Admin</h5>
+                      <h6> {user?.username || "Oga Pos Limited"}</h6>
+                      <h5> {user?.role || "Admin"}</h5>
                     </div>
                   </div>
                   <hr class="m-0" />
-                  <a
-                    class="dropdown-item"
-                    href="https://dreamspos.dreamstechnologies.com/html/template/profile.html"
-                  >
+                  <a class="dropdown-item" href="/profile">
                     {" "}
-                    <i class="me-2" data-feather="user"></i> My Profile
+                    <FiUser className="me-2" /> My Profile
                   </a>
-                  <a
-                    class="dropdown-item"
-                    href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"
-                  >
-                    <i class="me-2" data-feather="settings"></i>Settings
+                  <a class="dropdown-item" href="/settings">
+                    <FiSettings className="me-2" />
+                    Settings
                   </a>
                   <hr class="m-0" />
-                  <a
-                    class="dropdown-item logout pb-0"
-                    href="https://dreamspos.dreamstechnologies.com/html/template/signin.html"
-                  >
+                  <a class="dropdown-item logout pb-0" href="/login">
                     <img
                       src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/log-out.svg"
                       class="me-2"
@@ -399,25 +415,16 @@ const TopNav = () => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fa fa-ellipsis-v"></i>
+              <FaEllipsisV />
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a
-                class="dropdown-item"
-                href="https://dreamspos.dreamstechnologies.com/html/template/profile.html"
-              >
+              <a class="dropdown-item" href="/profile">
                 My Profile
               </a>
-              <a
-                class="dropdown-item"
-                href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html"
-              >
+              <a class="dropdown-item" href="/settings">
                 Settings
               </a>
-              <a
-                class="dropdown-item"
-                href="https://dreamspos.dreamstechnologies.com/html/template/signin.html"
-              >
+              <a class="dropdown-item" href="/login">
                 Logout
               </a>
             </div>

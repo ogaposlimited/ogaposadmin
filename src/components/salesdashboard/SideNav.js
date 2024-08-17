@@ -37,61 +37,16 @@ const SideNav = () => {
                     >
                       <i data-feather="grid"></i>
                       <span>Dashboard</span>
-                      <span className="menu-arrow"></span>
                     </a>
                     {openSubmenus.has(0) && (
                       <ul>
                         <li>
-                          <Link to="/admin-dashboard" className="active">
-                            Admin Dashboard
-                          </Link>
-                        </li>
-                        <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
+                          <Link
+                            to="/dashboard/sales-dashboard"
                             className="active"
                           >
-                            Manager Dashboard
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
-                            Sales/Staff Dashboard
-                          </a>
-                        </li>
-                      </ul>
-                    )}
-                  </li>
-                </ul>
-
-                <ul>
-                  <li className="submenu">
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        toggleSubmenu(10);
-                      }}
-                      className={openSubmenus.has(10) ? "subdrop active" : ""}
-                    >
-                      <i data-feather="grid"></i>
-                      <span>View Role</span>
-                      <span className="menu-arrow"></span>
-                    </a>
-                    {openSubmenus.has(10) && (
-                      <ul>
-                        <li>
-                          <Link to="/view-admin">Admin</Link>
-                        </li>
-                        <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/index.html">
-                            Manager
-                          </a>
-                        </li>
-                        <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
-                            Sales/Staff
-                          </a>
+                            Dashboard
+                          </Link>
                         </li>
                       </ul>
                     )}
@@ -140,7 +95,7 @@ const SideNav = () => {
                     {openSubmenus.has(11) && (
                       <ul>
                         <li>
-                          <Link to="/sales-list" className="active">
+                          <Link to="/sales/sales-list" className="active">
                             List Sales
                           </Link>
                         </li>
@@ -161,17 +116,10 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                            className="active"
-                          >
-                            Quotation
-                          </a>
+                          <a className="active">Quotation</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
-                            Invoice
-                          </a>
+                          <a>Invoice</a>
                         </li>
 
                         {/*} <li>
@@ -184,7 +132,58 @@ const SideNav = () => {
                   </li>
                 </ul>
               </li>
-
+              <li className="submenu-open">
+                <ul>
+                  <li className="submenu">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleSubmenu(21);
+                      }}
+                      className={openSubmenus.has(21) ? "subdrop active" : ""}
+                    >
+                      <i data-feather="grid"></i>
+                      <span>Points</span>
+                      <span className="menu-arrow"></span>
+                    </a>
+                    {openSubmenus.has(21) && (
+                      <ul>
+                        <li>
+                          <Link to="/sales/view-points" className="active">
+                            All Point
+                          </Link>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </ul>
+              </li>
+              <li className="submenu-open">
+                <ul>
+                  <li className="submenu">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleSubmenu(29);
+                      }}
+                      className={openSubmenus.has(29) ? "subdrop active" : ""}
+                    >
+                      <i data-feather="grid"></i>
+                      <span>Disbursement</span>
+                      <span className="menu-arrow"></span>
+                    </a>
+                    {openSubmenus.has(29) && (
+                      <ul>
+                        <li>
+                          <Link to="/sales/view-sales-disbursement">Sales</Link>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </ul>
+              </li>
               <li className="submenu-open">
                 <ul>
                   <li className="submenu">
@@ -203,20 +202,10 @@ const SideNav = () => {
                     {openSubmenus.has(12) && (
                       <ul>
                         <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                            className="active"
-                          >
-                            List Purchase
-                          </a>
+                          <a className="active">List Purchase</a>
                         </li>
                         <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                            className="active"
-                          >
-                            Add Purchases
-                          </a>
+                          <a className="active">Add Purchases</a>
                         </li>
                         {/*} <li>
                           <a
@@ -227,12 +216,7 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                            className="active"
-                          >
-                            Quotation
-                          </a>
+                          <a className="active">Quotation</a>
                         </li>
                         {/*}  <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
@@ -240,9 +224,7 @@ const SideNav = () => {
                           </a>
                         </li>*/}
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
-                            Invoice
-                          </a>
+                          <a>Invoice</a>
                         </li>
                         {/*} <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/sales-dashboard.html">
@@ -273,9 +255,7 @@ const SideNav = () => {
                     {openSubmenus.has(1) && (
                       <ul>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/expense-list.html">
-                            Expenses
-                          </a>
+                          <a>Expenses</a>
                         </li>
                       </ul>
                     )}
@@ -287,13 +267,13 @@ const SideNav = () => {
                 <h6 className="submenu-hdr">User Management</h6>
                 <ul>
                   <li>
-                    <a href="https://dreamspos.dreamstechnologies.com/html/template/users.html">
+                    <a>
                       <i data-feather="user-check"></i>
                       <span>Users</span>
                     </a>
                   </li>
                   <li>
-                    <a href="https://dreamspos.dreamstechnologies.com/html/template/roles-permissions.html">
+                    <a>
                       <i data-feather="shield"></i>
                       <span>Roles & Permissions</span>
                     </a>
@@ -304,7 +284,7 @@ const SideNav = () => {
                 <h6 className="submenu-hdr">Pages</h6>
                 <ul>
                   <li>
-                    <a href="https://dreamspos.dreamstechnologies.com/html/template/profile.html">
+                    <a>
                       <i data-feather="user"></i>
                       <span>Profile</span>
                     </a>
@@ -338,21 +318,15 @@ const SideNav = () => {
                           </a>
                           <ul>
                             <li>
-                              <a href="https://dreamspos.dreamstechnologies.com/html/template/forgot-password.html">
-                                Forgot Password
-                              </a>
+                              <a>Forgot Password</a>
                             </li>
                             <li>
-                              <a href="https://dreamspos.dreamstechnologies.com/html/template/otp.html">
-                                OTP
-                              </a>
+                              <a>OTP</a>
                             </li>
                           </ul>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/reset-password.html">
-                            Reset Password
-                          </a>
+                          <a>Reset Password</a>
                         </li>
                       </ul>
                     )}

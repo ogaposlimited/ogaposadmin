@@ -1,17 +1,3 @@
-// import React from "react";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// // import About from "./pages/About";
-// // import Home from "./pages/Home";
-// // import Login from "./pages/Login";
-// import AdminDashboard from "./admin/AdminDashboard";
-// const AdminRoute = [
-//   <Route exact path="admin-dashboard" element={<AdminDashboard />
-
-//   } />,
-// ];
-
-// export default AdminRoute;
-// src/AdminRoute.js
 import React from "react";
 import { Route } from "react-router-dom";
 import AdminDashboard from "./admin/AdminDashboard";
@@ -28,6 +14,12 @@ import AllUsers from "./forms/AllUsers";
 import Role from "./forms/Role";
 import Permission from "./forms/Permission";
 import SalesDashboard from "../salesdashboard/sales/SalesDashboard";
+import ViewManager from "./admin/ViewManager";
+import ViewSalesUsers from "./admin/ViewSalesUsers";
+import AddSalesPage from "./forms/AddSalesPage";
+import ViewPoints from "./forms/ViewPoints";
+import ViewDisSales from "./forms/ViewDisSales";
+import ViewDisManager from "./forms/ViewDisManager";
 
 const AdminRoute = [
   {
@@ -36,6 +28,19 @@ const AdminRoute = [
     auth: "admin",
   },
   { path: "/view-admin", element: <ViewAdmin />, auth: "admin" },
+  { path: "/view-manager", element: <ViewManager />, auth: "admin" },
+  {
+    path: "/view-sales-disbursement",
+    element: <ViewDisSales />,
+    auth: "admin",
+  },
+  {
+    path: "/view-manager-disbursement",
+    element: <ViewDisManager />,
+    auth: "admin",
+  },
+  { path: "/view-manager", element: <ViewManager />, auth: "admin" },
+  { path: "/view-sales-operators", element: <ViewSalesUsers />, auth: "admin" },
   { path: "/sales-dashboard", element: <SalesDashboard />, auth: "admin" },
   { path: "/sales-list", element: <AllSale />, auth: "admin" },
   { path: "/invoice-report", element: <Invoice />, auth: "admin" },
@@ -43,6 +48,8 @@ const AdminRoute = [
   { path: "/purchase-list", element: <AllPurchase />, auth: "admin" },
   { path: "/expense-list", element: <AllExpense />, auth: "admin" },
   { path: "/add-sales", element: <AddSale />, auth: "admin" },
+  { path: "/view-points", element: <ViewPoints />, auth: "admin" },
+  { path: "/add-sales-page", element: <AddSalesPage />, auth: "admin" },
   { path: "/profile", element: <Profile />, auth: "admin" },
   { path: "/settings", element: <Setting />, auth: "admin" },
   { path: "/all-users", element: <AllUsers />, auth: "admin" },
