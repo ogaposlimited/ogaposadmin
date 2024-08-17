@@ -735,9 +735,7 @@ const Sidebars = () => {
                       </a>
                       <ul>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                            Profile
-                          </a>
+                          <a>Profile</a>
                         </li>
                         <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">
@@ -2612,9 +2610,7 @@ const Sidebars = () => {
                     </a>
                     <ul>
                       <li>
-                        <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                          Profile
-                        </a>
+                        <a>Profile</a>
                       </li>
                       <li>
                         <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">
@@ -3974,9 +3970,7 @@ const Sidebars = () => {
                     </a>
                     <ul>
                       <li>
-                        <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                          Profile
-                        </a>
+                        <a>Profile</a>
                       </li>
                       <li>
                         <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">

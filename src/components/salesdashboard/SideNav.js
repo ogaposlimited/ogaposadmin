@@ -100,12 +100,7 @@ const SideNav = () => {
                           </Link>
                         </li>
                         <li>
-                          <a
-                            href="https://dreamspos.dreamstechnologies.com/html/template/index.html"
-                            className="active"
-                          >
-                            Add Sales
-                          </a>
+                          <a className="active">Add Sales</a>
                         </li>
                         {/* <li>
                           <a
@@ -150,9 +145,7 @@ const SideNav = () => {
                     {openSubmenus.has(21) && (
                       <ul>
                         <li>
-                          <Link to="/sales/view-points" className="active">
-                            All Point
-                          </Link>
+                          <Link className="active">All Point</Link>
                         </li>
                       </ul>
                     )}
@@ -270,12 +263,6 @@ const SideNav = () => {
                     <a>
                       <i data-feather="user-check"></i>
                       <span>Users</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      <i data-feather="shield"></i>
-                      <span>Roles & Permissions</span>
                     </a>
                   </li>
                 </ul>

@@ -266,7 +266,7 @@ const Setting = () => {
                       </div>
                     </div>
                     <div class="settings-page-wrap">
-                      <form action="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
+                      <form action="">
                         <div class="setting-title">
                           <h4>Profile Settings</h4>
                         </div>

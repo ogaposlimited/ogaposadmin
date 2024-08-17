@@ -735,24 +735,16 @@ const Sidebars = () => {
                       </a>
                       <ul>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                            Profile
-                          </a>
+                          <a>Profile</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">
-                            Security
-                          </a>
+                          <a>Security</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/notification.html">
-                            Notifications
-                          </a>
+                          <a>Notifications</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/connected-apps.html">
-                            Connected Apps
-                          </a>
+                          <a>Connected Apps</a>
                         </li>
                       </ul>
                     </li>
@@ -764,39 +756,25 @@ const Sidebars = () => {
                       </a>
                       <ul>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/system-settings.html">
-                            System Settings
-                          </a>
+                          <a>System Settings</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/company-settings.html">
-                            Company Settings{" "}
-                          </a>
+                          <a>Company Settings </a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/localization-settings.html">
-                            Localization
-                          </a>
+                          <a>Localization</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/prefixes.html">
-                            Prefixes
-                          </a>
+                          <a>Prefixes</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/preference.html">
-                            Preference
-                          </a>
+                          <a>Preference</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/appearance.html">
-                            Appearance
-                          </a>
+                          <a>Appearance</a>
                         </li>
                         <li>
-                          <a href="https://dreamspos.dreamstechnologies.com/html/template/social-authentication.html">
-                            Social Authentication
-                          </a>
+                          <a>Social Authentication</a>
                         </li>
                         <li>
                           <a href="https://dreamspos.dreamstechnologies.com/html/template/language-settings.html">
@@ -2612,9 +2590,7 @@ const Sidebars = () => {
                     </a>
                     <ul>
                       <li>
-                        <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                          Profile
-                        </a>
+                        <a>Profile</a>
                       </li>
                       <li>
                         <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">
@@ -3974,9 +3950,7 @@ const Sidebars = () => {
                     </a>
                     <ul>
                       <li>
-                        <a href="https://dreamspos.dreamstechnologies.com/html/template/general-settings.html">
-                          Profile
-                        </a>
+                        <a>Profile</a>
                       </li>
                       <li>
                         <a href="https://dreamspos.dreamstechnologies.com/html/template/security-settings.html">
