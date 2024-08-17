@@ -6,13 +6,15 @@ import SideNav from "../SideNav";
 import { Link } from "react-router-dom";
 import AddSale from "./AddSale";
 import useFetch from "../../../hooks/useFetch";
+import useAuth from "../../hooks/useAuth";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const AllSale = () => {
   const { data, loading, error, reFetch } = useFetch("/student/JS1");
   const apiUrl = process.env.REACT_APP_API_URL.trim();
   const [anchorElMap, setAnchorElMap] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
-
+  const [transactions, setTransactions] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState("");
@@ -23,13 +25,14 @@ const AllSale = () => {
     start: "",
     end: "",
   });
+
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [selectedPaymentStatus, setSelectedPaymentStatus] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedSalesperson, setSelectedSalesperson] = useState("");
   const [amountRange, setAmountRange] = useState({ min: "", max: "" });
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-
+  const { user } = useAuth(); // Access the authenticated user
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleOpenMenu = (event, examId) => {
     setAnchorElMap((prev) => ({
@@ -60,6 +63,29 @@ const AllSale = () => {
   const handleAdvancedSearchToggle = () => {
     setShowAdvancedSearch(!showAdvancedSearch);
   };
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        if (user && user._id) {
+          const response = await axios.get(
+            `${apiUrl}/api/cash/manager/${user._id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming JWT is stored in localStorage
+              },
+            }
+          );
+          setTransactions(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching transactions", error);
+      }
+    };
+
+    fetchTransactions();
+  }, [user]);
+
   return (
     <div>
       <body>
@@ -253,6 +279,7 @@ const AllSale = () => {
                               <span class="checkmarks"></span>
                             </label>
                           </th>
+                          <th>POS Operator/Point</th>
                           <th>Customer Name</th>
                           <th>Ref ID</th>
                           <th>Date</th>
@@ -268,1107 +295,73 @@ const AllSale = () => {
                           <th class="text-center">Action</th>
                         </tr>
                       </thead>
-                      <tbody class="sales-list">
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Thomas</td>
-                          <td>SL0101</td>
-                          <td>19 Jan 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$550</td>
-                          <td>$550</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
+                      <tbody className="sales-list">
+                        {transactions.length > 0 ? (
+                          transactions.map((transaction) => (
+                            <tr key={transaction._id}>
+                              <td>
+                                <label className="checkboxs">
+                                  <input type="checkbox" />
+                                  <span className="checkmarks"></span>
+                                </label>
+                              </td>
+                              <td>{transaction.posOperator.username}</td>
+                              <td>{transaction.customerName}</td>
+                              <td>{transaction.referenceId}</td>
+                              <td>
+                                {new Date(
+                                  transaction.date
+                                ).toLocaleDateString()}
+                              </td>
+                              <td>
+                                <span
+                                  className={`badge ${
+                                    transaction.status === "Completed"
+                                      ? "badge-bgsuccess"
+                                      : "badge-bgwarning"
+                                  }`}
                                 >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
+                                  {transaction.status}
+                                </span>
+                              </td>
+                              <td>₦{transaction.transactionAmount}</td>
+                              <td>{transaction.paymentMethod}</td>
+                              <td>₦{transaction.interest}</td>
+                              <td>{transaction.customerPhoneNo}</td>
+                              <td>
+                                <span
+                                  className={`badge ${
+                                    transaction.amountPaid
+                                      ? "badge-linesuccess"
+                                      : "badge-linewarning"
+                                  }`}
                                 >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Rose</td>
-                          <td>SL0102</td>
-                          <td>26 Jan 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$250</td>
-                          <td>$250</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Benjamin</td>
-                          <td>SL0103</td>
-                          <td>08 Feb 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$570</td>
-                          <td>$570</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Lilly</td>
-                          <td>SL0104</td>
-                          <td>12 Feb 2023</td>
-                          <td>
-                            <span class="badge badge-bgdanger">Pending</span>
-                          </td>
-                          <td>$300</td>
-                          <td>$0.00</td>
-                          <td>$300</td>
-                          <td>
-                            <span class="badge badge-linedanger">Due</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Freda</td>
-                          <td>SL0105</td>
-                          <td>17 Mar 2023</td>
-                          <td>
-                            <span class="badge badge-bgdanger">Pending</span>
-                          </td>
-                          <td>$700</td>
-                          <td>$0.00</td>
-                          <td>$700</td>
-                          <td>
-                            <span class="badge badge-linedanger">Due</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Alwin</td>
-                          <td>SL0106</td>
-                          <td>24 Mar 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$400</td>
-                          <td>$400</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Maybelle</td>
-                          <td>SL0107</td>
-                          <td>06 Apr 2023</td>
-                          <td>
-                            <span class="badge badge-bgdanger">Pending</span>
-                          </td>
-                          <td>$120</td>
-                          <td>$0.00</td>
-                          <td>$120</td>
-                          <td>
-                            <span class="badge badge-linedanger">Due</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Ellen</td>
-                          <td>SL0108</td>
-                          <td>16 Apr 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$830</td>
-                          <td>$830</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Kaitlin</td>
-                          <td>SL0109</td>
-                          <td>04 May 2023</td>
-                          <td>
-                            <span class="badge badge-bgdanger">Pending</span>
-                          </td>
-                          <td>$800</td>
-                          <td>$0.00</td>
-                          <td>$800</td>
-                          <td>
-                            <span class="badge badge-linedanger">Due</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>Grace</td>
-                          <td>SL0110</td>
-                          <td>29 May 2023</td>
-                          <td>
-                            <span class="badge badge-bgsuccess">Completed</span>
-                          </td>
-                          <td>$460</td>
-                          <td>$460</td>
-                          <td>$0.00</td>
-                          <td>
-                            <span class="badge badge-linesuccess">Paid</span>
-                          </td>
-                          <td>Admin</td>
-                          <td class="text-center">
-                            <a
-                              class="action-set"
-                              href="javascript:void(0);"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="true"
-                            >
-                              <i
-                                class="fa fa-ellipsis-v"
-                                aria-hidden="true"
-                              ></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                              <li>
-                                <a
-                                  href="#"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#sales-details-new"
-                                >
-                                  <i data-feather="eye" class="info-img"></i>
-                                  Sale Detail
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="https://dreamspos.dreamstechnologies.com/html/template/edit-sales.html"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#edit-sales-new"
-                                >
-                                  <i data-feather="edit" class="info-img"></i>
-                                  Edit Sale
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#showpayment"
-                                >
-                                  <i
-                                    data-feather="dollar-sign"
-                                    class="info-img"
-                                  ></i>
-                                  Show Payments
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#createpayment"
-                                >
-                                  <i
-                                    data-feather="plus-circle"
-                                    class="info-img"
-                                  ></i>
-                                  Create Payment
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item"
-                                >
-                                  <i
-                                    data-feather="download"
-                                    class="info-img"
-                                  ></i>
-                                  Download pdf
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  href="javascript:void(0);"
-                                  class="dropdown-item confirm-text mb-0"
-                                >
-                                  <i
-                                    data-feather="trash-2"
-                                    class="info-img"
-                                  ></i>
-                                  Delete Sale
-                                </a>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
+                                  {transaction.amountPaid ? "Paid" : "Unpaid"}
+                                </span>
+                              </td>
+                              <td>{transaction.transactionType}</td>
+                              <td>{transaction.paymentStatus}</td>
+                              <td>₦{transaction.profit}</td>
+                              <td className="action-table-data">
+                                <div className="edit-delete-action">
+                                  <a className="me-2 p-2" href="#">
+                                    <FaEdit className="edit-icon" />
+                                  </a>
+                                  <a
+                                    className="confirm-text p-2"
+                                    href="javascript:void(0);"
+                                  >
+                                    <FaTrash className="delete-icon" />
+                                  </a>
+                                </div>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan="15">No sales found.</td>
+                          </tr>
+                        )}
                       </tbody>
                     </table>
                     <AddSale

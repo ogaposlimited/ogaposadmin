@@ -318,14 +318,14 @@ const AllSale = () => {
                                 {transaction.status}
                               </span>
                             </td>
-                            <td>${transaction.transactionAmount}</td>
+                            <td>₦{transaction.transactionAmount}</td>
                             <td>{transaction.paymentMethod}</td>
-                            <td>${transaction.interest}</td>
+                            <td>₦{transaction.interest}</td>
                             <td>{transaction.customerPhoneNo}</td>
                             <td>{transaction.amountPaid ? "Yes" : "No"}</td>
                             <td>{transaction.transactionType}</td>
                             <td>{transaction.paymentStatus}</td>
-                            <td>${transaction.profit}</td>
+                            <td>₦{transaction.profit}</td>
                             <td className="action-table-data">
                               <div className="edit-delete-action">
                                 <a className="me-2 p-2" href="#">

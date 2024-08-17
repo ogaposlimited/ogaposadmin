@@ -71,7 +71,7 @@ const SideNav = () => {
                     {openSubmenus.has(10) && (
                       <ul>
                         <li>
-                          <Link to="/view-manager">Manager</Link>
+                          <Link to="/manager/view-manager">Manager</Link>
                         </li>
                         <li>
                           <Link to="/view-sales-operators">
@@ -125,7 +125,7 @@ const SideNav = () => {
                     {openSubmenus.has(11) && (
                       <ul>
                         <li>
-                          <Link to="/sales-list" className="active">
+                          <Link to="/manager/sales-list" className="active">
                             Sales List
                           </Link>
                         </li>

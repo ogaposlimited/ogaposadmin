@@ -420,8 +420,9 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
                   </div>
                   <div className="form-group col-md-6">
                     <label htmlFor="transactionAmount">
-                      Transaction Amount
+                      Transaction Amount(₦)
                     </label>
+
                     <input
                       type="number"
                       className="form-control"
@@ -433,7 +434,7 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="amountPaid">Amount Paid</label>
+                    <label htmlFor="amountPaid">Amount Paid(₦) </label>
                     <input
                       type="number"
                       className="form-control"
@@ -445,7 +446,7 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="interest">Interest/Fees</label>
+                    <label htmlFor="interest">Interest/Fees(₦) </label>
                     <input
                       type="number"
                       className="form-control"
@@ -457,7 +458,7 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
                     />
                   </div>
                   <div className="form-group col-md-6">
-                    <label htmlFor="profit">Profit</label>
+                    <label htmlFor="profit">Profit(₦) </label>
                     <input
                       type="number"
                       className="form-control"
