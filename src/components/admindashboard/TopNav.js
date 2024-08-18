@@ -78,11 +78,7 @@ const TopNav = () => {
                 }}
               />
             </a>
-            <a
-              id="toggle_btn"
-              href="javascript:void(0);"
-              onClick={toggleSidebar}
-            >
+            <a id="toggle_btn" href="javascript:void(0);">
               <FaChevronLeft className="chevron-icon" />
             </a>
           </div>
