@@ -19,7 +19,7 @@ import { useSidebar } from "./SidebarProvider";
 const TopNav = () => {
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // const { toggleSidebar } = useSidebar();
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, isSidebarOpen } = useSidebar();
 
   const { user } = useAuth(); // Access the authenticated user
   const [menuOpen, setMenuOpen] = useState(false);

@@ -16102,6 +16102,13 @@ div#global-loader .whirly-loader:not(:required) {
   transform: translateX(-100%); /* Slide out when closed */
 }
 
+@media (max-width: 575px) {
+  .sidebar,
+  .sidebars {
+    width: 100%;
+  }
+}
+
 .sidebar .slimScrollDiv,
 .sidebars .slimScrollDiv {
   background: #fff;
