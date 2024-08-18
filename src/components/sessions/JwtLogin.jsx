@@ -100,7 +100,7 @@ const JwtLogin = () => {
                     <form onSubmit={handleSubmit}>
                       <div class="login-userset">
                         <div class="login-userheading">
-                          <h3>Sign In</h3>
+                          <h3>Sign In - OGAPOS Dashboard</h3>
                           <h4>
                             Login to your dashboard using your email and
                             password
