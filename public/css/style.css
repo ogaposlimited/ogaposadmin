@@ -2596,7 +2596,7 @@ button:focus {
 .dropdown-divider {
   margin: 0;
 }
-.dropdown .dropdown-toggle:after {
+/* .dropdown .dropdown-toggle:after {
   display: inline-block;
   margin-inline-start: 0.25rem;
   vertical-align: 0;
@@ -2605,7 +2605,7 @@ button:focus {
   border: 0;
   font-size: 0.6rem;
   font-weight: 600;
-}
+} */
 .dropdown .dropdown-toggle.btn-primary {
   color: #fff;
 }
@@ -2660,6 +2660,21 @@ button:focus {
   font-size: 0.6rem;
   font-weight: 600;
 }
+/* Hide the arrow icon on mobile screens up to 880px */
+@media (max-width: 880px) {
+  .nav-link.dropdown-toggle::after {
+    content: none !important;
+    margin: 0 !important;
+  }
+}
+/* Hide the arrow icon on mobile screens up to 880px */
+@media (max-width: 880px) {
+  .dropdown-toggle::after {
+    content: none !important;
+    margin: 0 !important;
+  }
+}
+
 .dropup .dropdown-toggle::after {
   display: inline-block;
   margin-inline-start: 0.25rem;
@@ -14004,6 +14019,11 @@ td .checkboxs .checkmarks::after {
   padding: 17px 20px;
   border-radius: 0;
 }
+/* Hide the dropdown arrow for the nav link with the three dots */
+.nav-link.dropdown-toggle::after {
+  display: none !important;
+}
+
 @media (max-width: 991.98px) {
   .header .page-title-box {
     display: none;
