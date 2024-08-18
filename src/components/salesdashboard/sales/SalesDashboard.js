@@ -8,8 +8,10 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import "./sales.css";
+import { useSidebar } from "../../admindashboard/SidebarProvider";
 const SalesDashboard = () => {
   const { user } = useAuth(); // Access the authenticated user
+  const { isSidebarOpen } = useSidebar();
   const apiUrl = process.env.REACT_APP_API_URL.trim();
   const [transactions, setTransactions] = useState([]);
   const [totalSales, setTotalSales] = useState(0); // State for total sales
@@ -170,7 +172,7 @@ const SalesDashboard = () => {
   return (
     <div>
       <body>
-        <div class="main-wrapper">
+        <div className={`main-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
           <SideNav />
           <TopNav />
 

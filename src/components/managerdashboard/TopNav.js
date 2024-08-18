@@ -13,8 +13,9 @@ import { FiHelpCircle } from "react-icons/fi";
 
 import logo from "./oga4.png";
 import axios from "axios";
-import { useSidebar } from "./SidebarProvider";
+
 import useAuth from "../hooks/useAuth";
+import { useSidebar } from "../admindashboard/SidebarProvider";
 
 const TopNav = () => {
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,7 +24,13 @@ const TopNav = () => {
   // const toggleSidebar = () => {
   //   setIsSidebarOpen(!isSidebarOpen);
   // };
+  const { toggleSidebar, isSidebarOpen } = useSidebar();
+
   const { user } = useAuth(); // Access the authenticated user
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
   return (
     <body>
       <div class="main-wrapper">
@@ -71,24 +78,12 @@ const TopNav = () => {
                 }}
               />
             </a>
-            <a
-              id="toggle_btn"
-              href="javascript:void(0);"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            >
+            <a id="toggle_btn" href="javascript:void(0);">
               <FaChevronLeft className="chevron-icon" />
             </a>
           </div>
 
-          <a
-            id="mobile_btn"
-            className="mobile_btn"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
+          <a id="mobile_btn" className="mobile_btn" onClick={toggleSidebar}>
             <span class="bar-icon">
               <span></span>
               <span></span>

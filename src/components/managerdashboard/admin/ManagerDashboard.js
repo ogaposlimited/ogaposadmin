@@ -4,14 +4,18 @@ import logo from "./oga4.png";
 import axios from "axios";
 import TopNav from "../TopNav";
 import SideNav from "../SideNav";
-import Sidebars from "../Sidebars";
+
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import moment from "moment";
+import { useSidebar } from "../../admindashboard/SidebarProvider";
+
 const ManagerDashboard = () => {
   const [points, setPoints] = useState([]);
+
   const { user } = useAuth(); // Access the authenticated user
+  const { isSidebarOpen } = useSidebar(); // use context to get sidebar state
   const [totalSales, setTotalSales] = useState(0); // State for total sales
   const [totalDailySales, setTotalDailySales] = useState(0); // State for total daily sales
   const [totalLast30DaysSales, setTotalLast30DaysSales] = useState(0); // State for total last 30 days sales
@@ -185,7 +189,7 @@ const ManagerDashboard = () => {
   return (
     <div>
       <body>
-        <div class="main-wrapper">
+        <div className={`main-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
           <SideNav />
           <TopNav />
 
