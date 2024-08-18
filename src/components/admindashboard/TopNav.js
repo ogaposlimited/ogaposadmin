@@ -18,8 +18,14 @@ import { useSidebar } from "./SidebarProvider";
 
 const TopNav = () => {
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // const { toggleSidebar } = useSidebar();
   const { toggleSidebar } = useSidebar();
+
   const { user } = useAuth(); // Access the authenticated user
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   // const toggleSidebar = () => {
   //   setIsSidebarOpen(!isSidebarOpen);
@@ -75,24 +81,13 @@ const TopNav = () => {
             <a
               id="toggle_btn"
               href="javascript:void(0);"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("Mobile button clicked");
-                toggleSidebar(); // Toggle sidebar when button is clicked
-              }}
+              onClick={toggleSidebar}
             >
               <FaChevronLeft className="chevron-icon" />
             </a>
           </div>
 
-          <a
-            id="mobile_btn"
-            className="mobile_btn"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleSidebar(); // Toggle sidebar when button is clicked
-            }}
-          >
+          <a id="mobile_btn" className="mobile_btn" onClick={toggleSidebar}>
             <span class="bar-icon">
               <span></span>
               <span></span>

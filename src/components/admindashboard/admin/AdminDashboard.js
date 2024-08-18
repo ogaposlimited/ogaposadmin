@@ -10,10 +10,13 @@ import useAuth from "../../hooks/useAuth";
 import moment from "moment";
 import { Dropdown, ButtonGroup, Button } from "react-bootstrap";
 import "./admin.css";
+import { useSidebar } from "../SidebarProvider";
 
 const AdminDashboard = () => {
   const { user } = useAuth(); // Access the authenticated user
   const [points, setPoints] = useState([]);
+  const { isSidebarOpen } = useSidebar(); // use context to get sidebar state
+
   const apiUrl = process.env.REACT_APP_API_URL.trim();
   const [transactions, setTransactions] = useState([]);
   const [totalSales, setTotalSales] = useState(0); // State for total sales
@@ -189,10 +192,11 @@ const AdminDashboard = () => {
     };
     fetchPoints();
   }, []);
+
   return (
     <div>
       <body>
-        <div class="main-wrapper">
+        <div className={`main-wrapper ${isSidebarOpen ? "sidebar-open" : ""}`}>
           <SideNav />
           <TopNav />
 
