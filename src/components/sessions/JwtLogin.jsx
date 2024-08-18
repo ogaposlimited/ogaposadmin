@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import useAuth from "../hooks/useAuth";
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import * as Yup from "yup";
 // inital login credentials
 const initialValues = {
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 });
 const JwtLogin = () => {
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
@@ -126,15 +126,24 @@ const JwtLogin = () => {
                         </div>
                         <div class="form-login mb-3">
                           <label class="form-label">Password</label>
-                          <div class="pass-group">
+                          <div className="pass-group">
                             <input
                               value={values.password}
                               onChange={handleChange}
                               name="password"
-                              type="password"
-                              class="pass-input form-control"
+                              type={showPassword ? "text" : "password"}
+                              className="pass-input form-control"
                             />
-                            <span class="fas toggle-password fa-eye-slash"></span>
+                            <span
+                              className="toggle-password"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? (
+                                <AiOutlineEyeInvisible />
+                              ) : (
+                                <AiOutlineEye />
+                              )}
+                            </span>
                           </div>
                         </div>
                         <div class="form-login authentication-check">
