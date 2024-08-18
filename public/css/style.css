@@ -2674,6 +2674,23 @@ button:focus {
     margin: 0 !important;
   }
 }
+/* Hide the desktop menu item on screens 880px or smaller */
+@media (max-width: 880px) {
+  .nav-item.dropdown.has-arrow.main-drop {
+    display: none;
+  }
+  
+  .dropdown.mobile-user-menu {
+    display: block;
+  }
+}
+
+/* Ensure the mobile menu item is hidden on larger screens */
+@media (min-width: 881px) {
+  .dropdown.mobile-user-menu {
+    display: none;
+  }
+}
 
 .dropup .dropdown-toggle::after {
   display: inline-block;
