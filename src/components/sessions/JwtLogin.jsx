@@ -117,10 +117,7 @@ const JwtLogin = () => {
                               name="identifier"
                               onChange={handleChange}
                               class="form- control"
-                            />
-                            <img
-                              src="https://dreamspos.dreamstechnologies.com/html/template/assets/img/icons/mail.svg"
-                              alt="img"
+                              placeholder="Username/Email"
                             />
                           </div>
                         </div>
