@@ -5,11 +5,14 @@ import SideNav from "../SideNav";
 import "./admin.css";
 import AddSalesModal from "./AddSalesModal";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import EditSalesModal from "./EditSalesModal";
 
 const ViewSalesUsers = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [admins, setAdmins] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // State to track the selected user ID
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -44,6 +47,12 @@ const ViewSalesUsers = () => {
       }
     }
   };
+
+  const openEditModal = (userId) => {
+    setSelectedUserId(userId);
+    setShowEditModal(true);
+  };
+
   // Update table data after adding a new admin
   const updateTableData = () => {
     fetchAdmins(); // Refetch the data to ensure the table is updated
@@ -111,7 +120,11 @@ const ViewSalesUsers = () => {
                             </td>
                             <td className="action-table-data">
                               <div className="edit-delete-action">
-                                <a className="me-2 p-2" href="#">
+                                <a
+                                  className="me-2 p-2"
+                                  href="#"
+                                  onClick={() => openEditModal(admin._id)} // Open the edit modal
+                                >
                                   <FaEdit className="edit-icon" />
                                 </a>
                                 <a
@@ -131,6 +144,13 @@ const ViewSalesUsers = () => {
                       showModal={showModal}
                       setShowModal={setShowModal}
                       updateTableData={updateTableData} // Pass updateTableData to the modal
+                    />
+
+                    <EditSalesModal
+                      showModal={showEditModal}
+                      setShowModal={setShowEditModal}
+                      userId={selectedUserId}
+                      updateTableData={updateTableData}
                     />
                   </div>
                 </div>
