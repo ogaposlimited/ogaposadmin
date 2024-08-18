@@ -16029,8 +16029,7 @@ div#global-loader .whirly-loader:not(:required) {
 }
 .sidebar,
 .sidebars {
-  display: -ms-flexbox;
-  display: flex;
+  /* display: flex; */
   background-color: #f8f9fa;
   border-right: 1px solid transparent;
   margin-top: 0;
