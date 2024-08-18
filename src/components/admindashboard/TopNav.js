@@ -305,9 +305,7 @@ const TopNav = () => {
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-            >
-              <FaEllipsisV />
-            </a>
+            ></a>
             <div class="dropdown-menu dropdown-menu-right">
               <a class="dropdown-item" href="/profile">
                 My Profile
