@@ -238,7 +238,7 @@ const JwtLogin = () => {
             </div>
           </div>
         </div>
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </body>
     </>
   );

@@ -10,14 +10,8 @@
   color: #fff;
   border: none;
   padding: 10px 20px;
-  float: right;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.add-admin-btn:hover {
-  background-color: #f00; /* Darken on hover */
+  border-radius: 5px;
 }
 .edit-icon {
   color: #007bff; /* Edit icon color */
@@ -55,4 +49,14 @@
 .labels span {
   width: 50px;
   text-align: center;
+}
+@media (max-width: 600px) {
+  .add-admin-btn {
+    display: block; /* Ensure the button is visible */
+  }
+
+  /* Check modal styling */
+  .modal {
+    display: block; /* Ensure the modal is not hidden */
+  }
 }

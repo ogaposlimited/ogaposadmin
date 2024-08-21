@@ -72,15 +72,11 @@ const ViewSalesUsers = () => {
                 <div className="card-header">
                   <div className="header-container">
                     <h4 className="card-title">All POS operators</h4>
-                    <button
-                      className="add-admin-btn"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Add POS operators
-                    </button>
                   </div>
                 </div>
-
+                <button onClick={() => setShowModal(true)}>
+                  Add POS operators
+                </button>
                 <div className="card-body">
                   <div className="table-responsive dataview">
                     <table className="table dashboard-expired-products">

@@ -74,16 +74,49 @@ const EditSalesModal = ({
   // };
   const handleSave = async () => {
     try {
-      // Retrieve the JWT token from localStorage (or wherever you store it)
+      const token = localStorage.getItem("jwtToken");
 
-      // Make the PUT request with the token included in the Authorization header
-      await axios.put(`${apiUrl}/api/sales/${userId}`, formData, {});
+      // Ensure managedPoints is an array
+      if (typeof formData.managedPoints === "string") {
+        formData.managedPoints = formData.managedPoints
+          .split(",")
+          .map((point) => point.trim());
+      }
+
+      // Only send the fields that are allowed to be updated
+      const allowedFields = [
+        "username",
+        "email",
+        "phone",
+        "personaladdress",
+        "managedPoints",
+        "disbursements",
+        "role",
+      ];
+
+      const filteredFormData = {};
+      for (let key in formData) {
+        if (allowedFields.includes(key)) {
+          filteredFormData[key] = formData[key];
+        }
+      }
+
+      console.log("Sending data:", filteredFormData);
+
+      await axios.put(`${apiUrl}/api/sales/${userId}`, filteredFormData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setShowModal(false); // Close the modal
       updateTableData(); // Update the table data after the save
       alert("User updated successfully"); // Notify the user of success
     } catch (error) {
-      console.error("Error updating user:", error); // Log the error for debugging
+      console.error(
+        "Error updating user:",
+        error.response?.data || error.message
+      );
       alert("Failed to update user. Please try again."); // Notify the user of failure
     }
   };
