@@ -38,9 +38,10 @@ const ViewPoints = () => {
     fetchPoints();
   }, [apiUrl]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, event) => {
+    event.preventDefault(); // Prevent the default anchor behavior
     try {
-      await axios.delete(`${apiUrl}/point/${id}`);
+      await axios.delete(`${apiUrl}/api/point/${id}`);
       setPoints(points.filter((point) => point._id !== id));
     } catch (error) {
       console.error("Error deleting point:", error);
@@ -110,8 +111,10 @@ const ViewPoints = () => {
                               </a>
                               <a
                                 className="confirm-text p-2"
-                                href="javascript:void(0);"
-                                onClick={() => handleDelete(point._id)}
+                                href="#"
+                                onClick={(event) =>
+                                  handleDelete(point._id, event)
+                                }
                               >
                                 <FaTrash className="delete-icon" />
                               </a>
