@@ -60,7 +60,9 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
 
   return (
     <>
-      {showModal && <div className="modal-backdrop show"></div>}
+      {showModal && (
+        <div className="modal-backdrop show" style={{ zIndex: 1050 }}></div>
+      )}
       <div
         className={`modal fade ${showModal ? "show modal-enter" : ""}`}
         style={{ display: showModal ? "block" : "none" }}

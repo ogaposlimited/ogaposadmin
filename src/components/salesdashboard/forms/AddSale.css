@@ -10,6 +10,16 @@
   overflow-y: auto;
   z-index: 2000 !important;
 }
+
+.modal-backdrop {
+  z-index: 1040 !important; /* Ensure the backdrop is behind the modal */
+}
+
 .modal {
-  z-index: 2000 !important;
+  z-index: 1050 !important; /* Ensure the modal is above everything else */
+}
+
+a.force-mobile-button {
+  z-index: 999; /* The button should still be above most elements */
+  position: relative; /* Ensure correct positioning */
 }
