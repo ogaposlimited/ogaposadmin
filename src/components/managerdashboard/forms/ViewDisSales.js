@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import DisManager from "../admin/DisManager";
 import DisSales from "./DisSales";
 import useAuth from "../../hooks/useAuth";
-
+import "./all.css";
 const ViewDisSales = () => {
   const [showModal, setShowModal] = useState(false);
   const [disbursements, setDisbursements] = useState([]);
@@ -29,6 +29,9 @@ const ViewDisSales = () => {
           {
             headers: {
               Authorization: `Bearer ${token}`,
+            },
+            params: {
+              managerId: managerId, // Include managerId in the request params if required
             },
           }
         );
@@ -65,13 +68,12 @@ const ViewDisSales = () => {
                 </div>
               </div>
               <div className="page-btn">
-                <Link
-                  className="btn btn-added"
+                <a
+                  className="force-mobile-button"
                   onClick={() => setShowModal(true)}
                 >
-                  <i data-feather="plus-circle" className="me-2"></i> Add New
-                  Disbursement
-                </Link>
+                  Add New Disbursement
+                </a>
               </div>
             </div>
 

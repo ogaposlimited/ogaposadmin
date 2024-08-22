@@ -9,7 +9,7 @@ import { FiBell } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
 import { FaEllipsisV } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
-
+import "./TopNav.css";
 import { FiHelpCircle } from "react-icons/fi";
 
 import logo from "./oga4.png";
@@ -252,7 +252,10 @@ const TopNav = () => {
                 <FiSettings className="settings-icon" />
               </a>
             </li>
-            <li class="nav-item dropdown has-arrow main-drop">
+            <li
+              class="nav-item dropdown has-arrow main-drop"
+              style={{ zIndex: "10000" }}
+            >
               <a
                 href="javascript:void(0);"
                 class="dropdown-toggle nav-link userset"
@@ -260,11 +263,8 @@ const TopNav = () => {
               >
                 <span class="user-info">
                   <span class="user-detail">
-                    <span class="user-name">
-                      {" "}
-                      {user?.username || "Oga Pos Limited"}
-                    </span>
-                    <span class="user-role"> {user?.role || "Admin"}</span>
+                    <span class="user-name"> {user?.username}</span>
+                    <span class="user-role"> {user?.role}</span>
                   </span>
                 </span>
               </a>
@@ -272,8 +272,8 @@ const TopNav = () => {
                 <div class="profilename">
                   <div class="profileset">
                     <div class="profilesets">
-                      <h6> {user?.username || "Oga Pos Limited"}</h6>
-                      <h5> {user?.role || "Admin"}</h5>
+                      <h6> {user?.username}</h6>
+                      <h5> {user?.role}</h5>
                     </div>
                   </div>
                   <hr class="m-0" />

@@ -68,14 +68,17 @@ const ViewSalesUsers = () => {
           <SideNav />
 
           <div className="page-wrapper">
-            <Button onClick={() => setShowModal(true)}>
-              Add POS operators
-            </Button>
             <div className="content">
               <div className="card">
                 <div className="card-header">
                   <div className="header-container">
                     <h4 className="card-title">All POS operators</h4>
+                    <a
+                      className="force-mobile-button"
+                      onClick={() => setShowModal(true)}
+                    >
+                      Add Sales Operator
+                    </a>
                   </div>
                 </div>
 

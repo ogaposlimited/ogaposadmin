@@ -5,6 +5,7 @@ import axios from "axios";
 import TopNav from "../TopNav";
 import SideNav from "../SideNav";
 import "./admin.css";
+
 import AddAdminModal from "./AddAdminModal";
 import AddManagerModal from "./AddManagerModal";
 const ViewManager = () => {
@@ -33,13 +34,7 @@ const ViewManager = () => {
               <div class="card">
                 <div class="card-header">
                   <div className="header-container">
-                    <h4 className="card-title">All Managers</h4>
-                    <button
-                      className="add-admin-btn"
-                      onClick={() => setShowModal(true)}
-                    >
-                      Add Manager
-                    </button>
+                    <h4 className="card-title">View Profile</h4>
                   </div>
                 </div>
 
@@ -72,180 +67,11 @@ const ViewManager = () => {
                           </td>
                           <td>
                             <div class="productimgname">
-                              <a href="javascript:void(0);">
-                                Red Premium Handy{" "}
-                              </a>
+                              <a href="javascript:void(0);"></a>
                             </div>
                           </td>
                           <td>
-                            <a href="javascript:void(0);">PT006</a>
-                          </td>
-                          <td>17 Jan 2023</td>
-                          <td>29 Mar 2023</td>
-                          <td>29 Mar 2023</td>
-                          <td class="action-table-data">
-                            <div class="edit-delete-action">
-                              <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
-                              </a>
-                              <a
-                                class=" confirm-text p-2"
-                                href="javascript:void(0);"
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>
-                            <div class="productimgname">
-                              <a href="javascript:void(0);">Iphone 14 Pro</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="javascript:void(0);">PT007</a>
-                          </td>
-                          <td>22 Feb 2023</td>
-                          <td>04 Apr 2023</td>
-                          <td>04 Apr 2023</td>
-                          <td class="action-table-data">
-                            <div class="edit-delete-action">
-                              <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
-                              </a>
-                              <a
-                                class="confirm-text p-2"
-                                href="javascript:void(0);"
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>
-                            <div class="productimgname">
-                              <a href="javascript:void(0);">Black Slim 200 </a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="javascript:void(0);">PT008</a>
-                          </td>
-                          <td>18 Mar 2023</td>
-                          <td>13 May 2023</td>
-                          <td>13 May 2023</td>
-                          <td class="action-table-data">
-                            <div class="edit-delete-action">
-                              <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
-                              </a>
-                              <a
-                                class=" confirm-text p-2"
-                                href="javascript:void(0);"
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>
-                            <div class="productimgname">
-                              <a href="javascript:void(0);">Woodcraft Sandal</a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="javascript:void(0);">PT009</a>
-                          </td>
-                          <td>29 Mar 2023</td>
-                          <td>27 May 2023</td>
-                          <td>27 May 2023</td>
-                          <td class="action-table-data">
-                            <div class="edit-delete-action">
-                              <a class="me-2 p-2" href="#">
-                                <i data-feather="edit" class="feather-edit"></i>
-                              </a>
-                              <a
-                                class=" confirm-text p-2"
-                                href="javascript:void(0);"
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
-                              </a>
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr>
-                          <td>
-                            <label class="checkboxs">
-                              <input type="checkbox" />
-                              <span class="checkmarks"></span>
-                            </label>
-                          </td>
-                          <td>
-                            <div class="productimgname">
-                              <a href="javascript:void(0);">
-                                Apple Series 5 Watch{" "}
-                              </a>
-                            </div>
-                          </td>
-                          <td>
-                            <a href="javascript:void(0);">PT010</a>
-                          </td>
-                          <td>24 Mar 2023</td>
-                          <td>26 May 2023</td>
-                          <td>26 May 2023</td>
-                          <td class="action-table-data">
-                            <div class="edit-delete-action">
-                              <a
-                                class="me-2 p-2"
-                                href="#"
-                                data-bs-toggle="modal"
-                                data-bs-target="#edit-units"
-                              >
-                                <i data-feather="edit" class="feather-edit"></i>
-                              </a>
-                              <a
-                                class=" confirm-text p-2"
-                                href="javascript:void(0);"
-                              >
-                                <i
-                                  data-feather="trash-2"
-                                  class="feather-trash-2"
-                                ></i>
-                              </a>
-                            </div>
+                            <a href="javascript:void(0);"></a>
                           </td>
                         </tr>
                       </tbody>

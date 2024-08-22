@@ -6,11 +6,14 @@ import "./admin.css";
 import AddAdminModal from "./AddAdminModal";
 import logo from "./oga4.png";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import EditAdminModal from "./EditAdminModal";
 
 const ViewAdmin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [admins, setAdmins] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // State to track the selected user ID
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -31,7 +34,24 @@ const ViewAdmin = () => {
   useEffect(() => {
     fetchAdmins();
   }, []);
+  const deleteUser = async (userId) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await axios.delete(`${apiUrl}/api/users/${userId}`);
+        // Remove the deleted user from the state
+        setAdmins(admins.filter((admin) => admin._id !== userId));
+        alert("User deleted successfully");
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        alert("Failed to delete user. Please try again.");
+      }
+    }
+  };
 
+  const openEditModal = (userId) => {
+    setSelectedUserId(userId);
+    setShowEditModal(true);
+  };
   // Update table data after adding a new admin
   const updateTableData = () => {
     fetchAdmins(); // Refetch the data to ensure the table is updated
@@ -48,14 +68,15 @@ const ViewAdmin = () => {
               <div className="card-header">
                 <div className="header-container">
                   <h4 className="card-title">All Admin</h4>
-                  <button
-                    className="add-admin-btn"
+                  <a
+                    className="force-mobile-button"
                     onClick={() => setShowModal(true)}
                   >
                     Add Admin
-                  </button>
+                  </a>
                 </div>
               </div>
+              <div></div>
 
               <div className="card-body">
                 <div className="table-responsive dataview">
@@ -96,12 +117,17 @@ const ViewAdmin = () => {
                           </td>
                           <td className="action-table-data">
                             <div className="edit-delete-action">
-                              <a className="me-2 p-2" href="#">
+                              <a
+                                className="me-2 p-2"
+                                href="#"
+                                onClick={() => openEditModal(admin._id)} // Open the edit modal
+                              >
                                 <FaEdit className="edit-icon" />
                               </a>
                               <a
                                 className="confirm-text p-2"
                                 href="javascript:void(0);"
+                                onClick={() => deleteUser(admin._id)}
                               >
                                 <FaTrash className="delete-icon" />
                               </a>
@@ -114,6 +140,12 @@ const ViewAdmin = () => {
                   <AddAdminModal
                     showModal={showModal}
                     setShowModal={setShowModal}
+                    updateTableData={updateTableData}
+                  />
+                  <EditAdminModal
+                    showModal={showEditModal}
+                    setShowModal={setShowEditModal}
+                    userId={selectedUserId}
                     updateTableData={updateTableData}
                   />
                 </div>

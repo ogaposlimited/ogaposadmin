@@ -264,7 +264,7 @@ import TopNav from "../TopNav";
 import SideNav from "../SideNav";
 import { Link } from "react-router-dom";
 import DisManager from "../admin/DisManager";
-
+import "./all.css";
 const ViewDisManager = () => {
   const [showModal, setShowModal] = useState(false);
   const [disbursements, setDisbursements] = useState([]);
@@ -314,15 +314,12 @@ const ViewDisManager = () => {
                   <h4>Manager Disbursement List</h4>
                 </div>
               </div>
-              <div className="page-btn">
-                <Link
-                  className="btn btn-added"
-                  onClick={() => setShowModal(true)}
-                >
-                  <i data-feather="plus-circle" className="me-2"></i> Add New
-                  Disbursement
-                </Link>
-              </div>
+              <a
+                className="force-mobile-button"
+                onClick={() => setShowModal(true)}
+              >
+                Add New Disbursement
+              </a>
             </div>
 
             <div className="card table-list-card">

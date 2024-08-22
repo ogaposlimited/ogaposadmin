@@ -57,12 +57,16 @@ const ManagerRoute = [
   { path: "/manager/purchase-list", element: <AllPurchase />, auth: "manager" },
   { path: "/manager/expense-list", element: <AllExpense />, auth: "manager" },
   { path: "/manager/add-sales", element: <AddSale />, auth: "manager" },
-  { path: "/manager/view-points", element: <ViewPoints />, auth: "admin" },
-  { path: "/manager/add-sales-page", element: <AddSalesPage />, auth: "admin" },
-  { path: "/manager/profile", element: <Profile />, auth: "admin" },
-  { path: "/manager/settings", element: <Setting />, auth: "admin" },
-  { path: "/manager/all-users", element: <AllUsers />, auth: "admin" },
-  { path: "/manager/permission", element: <Permission />, auth: "admin" },
+  { path: "/manager/view-points", element: <ViewPoints />, auth: "manager" },
+  {
+    path: "/manager/add-sales-page",
+    element: <AddSalesPage />,
+    auth: "manager",
+  },
+  { path: "/manager/profile", element: <Profile />, auth: "manager" },
+  { path: "/manager/settings", element: <Setting />, auth: "manager" },
+  { path: "/manager/all-users", element: <AllUsers />, auth: "manager" },
+  { path: "/manager/permission", element: <Permission />, auth: "manager" },
 ];
 
 export default ManagerRoute;

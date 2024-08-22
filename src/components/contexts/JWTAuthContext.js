@@ -86,6 +86,34 @@ const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    const initAuth = async () => {
+      const jwtToken = localStorage.getItem("jwtToken");
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (jwtToken && isValidToken(jwtToken)) {
+        setSession(jwtToken);
+        dispatch({
+          type: "INIT",
+          payload: {
+            isAuthenticated: true,
+            user: storedUser,
+          },
+        });
+      } else {
+        dispatch({
+          type: "INIT",
+          payload: {
+            isAuthenticated: false,
+            user: null,
+          },
+        });
+      }
+    };
+
+    initAuth();
+  }, []);
+
   const login = async (identifier, password, role) => {
     try {
       const response = await axios.post(`${apiUrl}/api/login`, {
@@ -99,6 +127,9 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         const { token, user } = response.data;
         console.log("Retrieved JWT Token:", token);
+        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
         console.error("Login failed with status:", response.status);
         console.error("Response data:", response.data);
 
@@ -176,17 +207,19 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setSession(null);
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
   };
 
   useEffect(() => {
     (async () => {
       try {
-        const jwtToken = window.localStorage.getItem("jwtToken");
+        const jwtToken = localStorage.getItem("jwtToken");
 
         if (jwtToken && isValidToken(jwtToken)) {
           setSession(jwtToken);
-          const response = await axios.get("/api/auth/profile");
+          const response = await axios.get(`${apiUrl}api/auth/profile`);
           const { user } = response.data;
           console.log("User retrieved from the server:", user);
 
@@ -198,7 +231,6 @@ export const AuthProvider = ({ children }) => {
             },
           });
         } else {
-          console.log("JWT Token not found or is invalid.");
           dispatch({
             type: "INIT",
             payload: {
@@ -229,6 +261,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         ...state,
         method: "JWT",
+
         login,
         logout,
         register,

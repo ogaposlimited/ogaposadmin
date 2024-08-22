@@ -77,7 +77,7 @@ const SideNav = () => {
                           <Link to="/manager/view-manager">Manager</Link>
                         </li>
                         <li>
-                          <Link to="/view-sales-operators">
+                          <Link to="/manager/view-sales-operators">
                             Staff/POS Operator
                           </Link>
                         </li>

@@ -7,7 +7,7 @@ import SideNav from "../SideNav";
 import { Link } from "react-router-dom";
 import AddSale from "./AddSale";
 import useFetch from "../../../hooks/useFetch";
-
+import "./all.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 const AllSale = () => {
@@ -16,12 +16,14 @@ const AllSale = () => {
   const [anchorElMap, setAnchorElMap] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [transactions, setTransactions] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const { user } = useAuth(); // Access the authenticated user
+  const [selectedUserId, setSelectedUserId] = useState(null); // State to track the selected user ID
   const [selectedDateRange, setSelectedDateRange] = useState({
     start: "",
     end: "",
@@ -85,6 +87,22 @@ const AllSale = () => {
 
     fetchTransactions();
   }, [user]);
+
+  const deleteUser = async (userId) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await axios.delete(`${apiUrl}/api/cash/${userId}`);
+        // Remove the deleted user from the state
+        setTransactions(
+          transactions.filter((transaction) => transaction._id !== userId)
+        );
+        alert("User deleted successfully");
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        alert("Failed to delete user. Please try again.");
+      }
+    }
+  };
   return (
     <div>
       <body>
@@ -104,13 +122,12 @@ const AllSale = () => {
                 </div>
 
                 <div class="page-btn">
-                  <Link
-                    class="btn btn-added"
+                  <a
+                    className="force-mobile-button"
                     onClick={() => setShowModal(true)}
                   >
-                    <i data-feather="plus-circle" class="me-2"></i> Add New
-                    Sales
-                  </Link>
+                    Add New Sales
+                  </a>
                 </div>
               </div>
 
@@ -334,6 +351,7 @@ const AllSale = () => {
                                 <a
                                   className="confirm-text p-2"
                                   href="javascript:void(0);"
+                                  onClick={() => deleteUser(transaction._id)}
                                 >
                                   <FaTrash className="delete-icon" />
                                 </a>

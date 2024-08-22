@@ -8,22 +8,17 @@ import { FiUser } from "react-icons/fi";
 import { FiBell } from "react-icons/fi";
 import { FiSettings } from "react-icons/fi";
 import { FaEllipsisV } from "react-icons/fa";
-
+import useAuth from "../hooks/useAuth";
+import "./TopNav.css";
 import { FiHelpCircle } from "react-icons/fi";
 
 import logo from "./oga4.png";
 import axios from "axios";
-
-import useAuth from "../hooks/useAuth";
 import { useSidebar } from "../admindashboard/SidebarProvider";
 
 const TopNav = () => {
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // const { toggleSidebar } = useSidebar();
-
-  // const toggleSidebar = () => {
-  //   setIsSidebarOpen(!isSidebarOpen);
-  // };
   const { toggleSidebar, isSidebarOpen } = useSidebar();
 
   const { user } = useAuth(); // Access the authenticated user
@@ -31,6 +26,11 @@ const TopNav = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  // const toggleSidebar = () => {
+  //   setIsSidebarOpen(!isSidebarOpen);
+  // };
+
   return (
     <body>
       <div class="main-wrapper">
@@ -252,7 +252,10 @@ const TopNav = () => {
                 <FiSettings className="settings-icon" />
               </a>
             </li>
-            <li class="nav-item dropdown has-arrow main-drop">
+            <li
+              class="nav-item dropdown has-arrow main-drop"
+              style={{ zIndex: "10000" }}
+            >
               <a
                 href="javascript:void(0);"
                 class="dropdown-toggle nav-link userset"
@@ -260,10 +263,8 @@ const TopNav = () => {
               >
                 <span class="user-info">
                   <span class="user-detail">
-                    <span className="user-name">
-                      {user?.username || "Oga Pos Limited"}
-                    </span>
-                    <span className="user-role">{user?.role || "Admin"}</span>
+                    <span class="user-name"> {user?.username}</span>
+                    <span class="user-role"> {user?.role}</span>
                   </span>
                 </span>
               </a>
@@ -271,8 +272,8 @@ const TopNav = () => {
                 <div class="profilename">
                   <div class="profileset">
                     <div class="profilesets">
-                      <h6> {user?.username || "Oga Pos Limited"}</h6>
-                      <h5> {user?.role || "Admin"}</h5>
+                      <h6> {user?.username}</h6>
+                      <h5> {user?.role}</h5>
                     </div>
                   </div>
                   <hr class="m-0" />

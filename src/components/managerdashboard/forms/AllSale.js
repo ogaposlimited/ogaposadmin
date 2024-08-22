@@ -8,7 +8,7 @@ import AddSale from "./AddSale";
 import useFetch from "../../../hooks/useFetch";
 import useAuth from "../../hooks/useAuth";
 import { FaEdit, FaTrash } from "react-icons/fa";
-
+import "./all.css";
 const AllSale = () => {
   const { data, loading, error, reFetch } = useFetch("/student/JS1");
   const apiUrl = process.env.REACT_APP_API_URL.trim();
@@ -105,13 +105,12 @@ const AllSale = () => {
                 </div>
 
                 <div class="page-btn">
-                  <Link
-                    class="btn btn-added"
+                  <a
+                    className="force-mobile-button"
                     onClick={() => setShowModal(true)}
                   >
-                    <i data-feather="plus-circle" class="me-2"></i> Add New
-                    Sales
-                  </Link>
+                    Add New Sales
+                  </a>
                 </div>
               </div>
 

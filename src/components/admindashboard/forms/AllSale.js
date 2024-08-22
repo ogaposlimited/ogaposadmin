@@ -5,6 +5,7 @@ import TopNav from "../TopNav";
 import SideNav from "../SideNav";
 import { Link } from "react-router-dom";
 import AddSale from "./AddSale";
+import "./all.css";
 import useFetch from "../../../hooks/useFetch";
 
 const AllSale = () => {
@@ -79,13 +80,12 @@ const AllSale = () => {
                 </div>
 
                 <div class="page-btn">
-                  <Link
-                    class="btn btn-added"
+                  <a
+                    className="force-mobile-button"
                     onClick={() => setShowModal(true)}
                   >
-                    <i data-feather="plus-circle" class="me-2"></i> Add New
-                    Sales
-                  </Link>
+                    Add New Sales
+                  </a>
                 </div>
               </div>
 

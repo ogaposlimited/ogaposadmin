@@ -8,6 +8,7 @@ import AddSale from "./AddSale";
 import useFetch from "../../../hooks/useFetch";
 import DisManager from "../admin/DisManager";
 import DisSales from "../admin/DisSales";
+import "./all.css";
 
 const ViewDisSales = () => {
   const { data, loading, error, reFetch } = useFetch("/student/JS1");
@@ -79,15 +80,12 @@ const ViewDisSales = () => {
                   </div>
                 </div>
 
-                <div class="page-btn">
-                  <Link
-                    class="btn btn-added"
-                    onClick={() => setShowModal(true)}
-                  >
-                    <i data-feather="plus-circle" class="me-2"></i> Add New
-                    Disbursement
-                  </Link>
-                </div>
+                <a
+                  className="force-mobile-button"
+                  onClick={() => setShowModal(true)}
+                >
+                  Add New Disbursement
+                </a>
               </div>
 
               <div class="card table-list-card">

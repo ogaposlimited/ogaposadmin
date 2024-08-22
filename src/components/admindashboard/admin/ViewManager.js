@@ -7,11 +7,15 @@ import SideNav from "../SideNav";
 import "./admin.css";
 import AddAdminModal from "./AddAdminModal";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import EditSalesModal from "./EditSalesModal";
 import AddManagerModal from "./AddManagerModal";
+import EditManagerModal from "./EditManagerModal";
 const ViewManager = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [admins, setAdmins] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // State to track the selected user ID
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -32,7 +36,24 @@ const ViewManager = () => {
   useEffect(() => {
     fetchAdmins();
   }, []);
+  const deleteUser = async (userId) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await axios.delete(`${apiUrl}/api/users/${userId}`);
+        // Remove the deleted user from the state
+        setAdmins(admins.filter((admin) => admin._id !== userId));
+        alert("User deleted successfully");
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        alert("Failed to delete user. Please try again.");
+      }
+    }
+  };
 
+  const openEditModal = (userId) => {
+    setSelectedUserId(userId);
+    setShowEditModal(true);
+  };
   // Update table data after adding a new admin
   const updateTableData = () => {
     fetchAdmins(); // Refetch the data to ensure the table is updated
@@ -52,12 +73,12 @@ const ViewManager = () => {
                 <div class="card-header">
                   <div className="header-container">
                     <h4 className="card-title">All Managers</h4>
-                    <button
-                      className="add-admin-btn"
+                    <a
+                      className="force-mobile-button"
                       onClick={() => setShowModal(true)}
                     >
                       Add Manager
-                    </button>
+                    </a>
                   </div>
                 </div>
 
@@ -100,12 +121,17 @@ const ViewManager = () => {
                             </td>
                             <td className="action-table-data">
                               <div className="edit-delete-action">
-                                <a className="me-2 p-2" href="#">
+                                <a
+                                  className="me-2 p-2"
+                                  href="#"
+                                  onClick={() => openEditModal(admin._id)} // Open the edit modal
+                                >
                                   <FaEdit className="edit-icon" />
                                 </a>
                                 <a
                                   className="confirm-text p-2"
                                   href="javascript:void(0);"
+                                  onClick={() => deleteUser(admin._id)}
                                 >
                                   <FaTrash className="delete-icon" />
                                 </a>
@@ -118,6 +144,12 @@ const ViewManager = () => {
                     <AddManagerModal
                       showModal={showModal}
                       setShowModal={setShowModal}
+                      updateTableData={updateTableData}
+                    />
+                    <EditManagerModal
+                      showModal={showEditModal}
+                      setShowModal={setShowEditModal}
+                      userId={selectedUserId}
                       updateTableData={updateTableData}
                     />
                   </div>
