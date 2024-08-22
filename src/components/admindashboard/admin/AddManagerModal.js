@@ -65,7 +65,7 @@ const AddManagerModal = ({ showModal, setShowModal, updateTableData }) => {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Add Manager</h5>
+              <h5 className="modal-title">Add New Manager</h5>
               <button
                 type="button"
                 className="close"
