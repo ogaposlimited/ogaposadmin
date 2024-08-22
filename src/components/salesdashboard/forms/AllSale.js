@@ -125,7 +125,6 @@ const AllSale = () => {
                   <a
                     className="force-mobile-button"
                     onClick={() => setShowModal(true)}
-                    style={{ position: "relative", zIndex: 1 }}
                   >
                     Add New Sales
                   </a>
