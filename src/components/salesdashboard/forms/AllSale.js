@@ -7,7 +7,7 @@ import SideNav from "../SideNav";
 import { Link } from "react-router-dom";
 import AddSale from "./AddSale";
 import useFetch from "../../../hooks/useFetch";
-import "./all.css";
+// import "./all.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 const AllSale = () => {
@@ -125,6 +125,7 @@ const AllSale = () => {
                   <a
                     className="force-mobile-button"
                     onClick={() => setShowModal(true)}
+                    style={{ position: "relative", zIndex: 1 }}
                   >
                     Add New Sales
                   </a>
