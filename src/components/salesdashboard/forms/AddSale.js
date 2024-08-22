@@ -65,7 +65,7 @@ const AddSale = ({ showModal, setShowModal, updateTableData }) => {
       )}
       <div
         className={`modal fade ${showModal ? "show modal-enter" : ""}`}
-        style={{ display: showModal ? "block" : "none" }}
+        style={{ display: showModal ? "block" : "none", zIndex: "1050" }}
         tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
