@@ -10,3 +10,6 @@
   overflow-y: auto;
   z-index: 2000 !important;
 }
+.modal {
+  z-index: 2000 !important;
+}
