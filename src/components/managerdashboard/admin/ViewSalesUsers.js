@@ -98,7 +98,6 @@ const ViewSalesUsers = () => {
                           <th>Phone No</th>
                           <th>Address</th>
                           <th>Point</th>
-                          <th className="no-sort">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -118,24 +117,6 @@ const ViewSalesUsers = () => {
                               {admin?.managedPoints
                                 ?.map((point) => point.pointname)
                                 .join(", ")}
-                            </td>
-                            <td className="action-table-data">
-                              <div className="edit-delete-action">
-                                <a
-                                  className="me-2 p-2"
-                                  href="#"
-                                  onClick={() => openEditModal(admin._id)} // Open the edit modal
-                                >
-                                  <FaEdit className="edit-icon" />
-                                </a>
-                                <a
-                                  className="confirm-text p-2"
-                                  href="javascript:void(0);"
-                                  onClick={() => deleteUser(admin._id)}
-                                >
-                                  <FaTrash className="delete-icon" />
-                                </a>
-                              </div>
                             </td>
                           </tr>
                         ))}
