@@ -14,6 +14,8 @@ const ViewPoints = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // State to track the selected user ID
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -108,7 +110,7 @@ const ViewPoints = () => {
                               </a>
                               <a
                                 className="confirm-text p-2"
-                                href="#"
+                                href="javascript:void(0);"
                                 onClick={() => handleDelete(point._id)}
                               >
                                 <FaTrash className="delete-icon" />
