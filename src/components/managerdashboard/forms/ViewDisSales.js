@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 import DisManager from "../admin/DisManager";
 import DisSales from "./DisSales";
 import useAuth from "../../hooks/useAuth";
+
+import { FaEdit, FaTrash } from "react-icons/fa";
+
 import "./all.css";
 const ViewDisSales = () => {
   const [showModal, setShowModal] = useState(false);
@@ -19,7 +22,8 @@ const ViewDisSales = () => {
     const fetchDisbursements = async () => {
       try {
         if (!managerId) {
-          throw new Error("No manager ID found");
+          console.error("No manager ID found");
+          return; // Stop execution if managerId is not set
         }
 
         const token = localStorage.getItem("jwtToken");
@@ -31,7 +35,7 @@ const ViewDisSales = () => {
               Authorization: `Bearer ${token}`,
             },
             params: {
-              managerId: managerId, // Include managerId in the request params if required
+              managerId: managerId, // Include managerId in the request params
             },
           }
         );
@@ -42,15 +46,33 @@ const ViewDisSales = () => {
       }
     };
 
-    fetchDisbursements();
+    if (managerId) {
+      fetchDisbursements();
+    }
   }, [apiUrl, managerId]);
-
   useEffect(() => {
     setDisbursements();
   }, []);
 
   const updateTableData = () => {
     setDisbursements(); // Refetch the data to ensure the table is updated
+  };
+
+  const deleteDisbursement = async (disbursementId) => {
+    try {
+      const token = localStorage.getItem("jwtToken");
+
+      await axios.delete(`${apiUrl}/api/disbursementt/${disbursementId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Refresh the table data after deletion
+      updateTableData();
+    } catch (error) {
+      console.error("Error deleting disbursement:", error);
+    }
   };
 
   return (
@@ -94,6 +116,7 @@ const ViewDisSales = () => {
                         <th>Date</th>
                         <th>Status</th> {/* New column for status */}
                         <th>Notes</th> {/* New column for notes */}
+                        <th>Action</th> {/* New column for notes */}
                       </tr>
                     </thead>
                     <tbody className="sales-list">
@@ -119,6 +142,21 @@ const ViewDisSales = () => {
                             <td>{disbursement?.status}</td>{" "}
                             {/* Display status */}
                             <td>{disbursement?.notes}</td> {/* Display notes */}
+                            <td className="action-table-data">
+                              <div className="edit-delete-action">
+                                <a className="me-2 p-2" href="#">
+                                  <FaEdit className="edit-icon" />
+                                </a>
+                                <a
+                                  className="confirm-text p-2"
+                                  onClick={(event) =>
+                                    deleteDisbursement(disbursement._id, event)
+                                  }
+                                >
+                                  <FaTrash className="delete-icon" />
+                                </a>
+                              </div>
+                            </td>
                           </tr>
                         ))
                       ) : (

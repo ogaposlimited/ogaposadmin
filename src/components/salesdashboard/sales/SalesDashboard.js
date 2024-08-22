@@ -501,7 +501,7 @@ const SalesDashboard = () => {
                                   Point 1(Ogba)
                                 </a>
                               </td>
-                              <td>12,500</td>
+                              <td></td>
                             </tr>
                             <tr>
                               <td>2</td>
@@ -510,7 +510,7 @@ const SalesDashboard = () => {
                                   Point 2(Ogba)
                                 </a>
                               </td>
-                              <td>$1600</td>
+                              <td></td>
                             </tr>
                             <tr>
                               <td>3</td>
@@ -519,7 +519,7 @@ const SalesDashboard = () => {
                                   Point 3(Ogba)
                                 </a>
                               </td>
-                              <td>$2000</td>
+                              <td></td>
                             </tr>
                             <tr>
                               <td>4</td>
@@ -528,7 +528,7 @@ const SalesDashboard = () => {
                                   Point 4(Ogba)
                                 </a>
                               </td>
-                              <td>$800</td>
+                              <td></td>
                             </tr>
                           </tbody>
                         </table>
