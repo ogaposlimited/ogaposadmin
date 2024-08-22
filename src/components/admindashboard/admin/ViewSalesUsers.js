@@ -6,6 +6,7 @@ import "./admin.css";
 import AddSalesModal from "./AddSalesModal";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import EditSalesModal from "./EditSalesModal";
+import { Button } from "react-bootstrap";
 
 const ViewSalesUsers = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -67,6 +68,9 @@ const ViewSalesUsers = () => {
           <SideNav />
 
           <div className="page-wrapper">
+            <Button onClick={() => setShowModal(true)}>
+              Add POS operators
+            </Button>
             <div className="content">
               <div className="card">
                 <div className="card-header">
@@ -74,9 +78,7 @@ const ViewSalesUsers = () => {
                     <h4 className="card-title">All POS operators</h4>
                   </div>
                 </div>
-                <button onClick={() => setShowModal(true)}>
-                  Add POS operators
-                </button>
+
                 <div className="card-body">
                   <div className="table-responsive dataview">
                     <table className="table dashboard-expired-products">

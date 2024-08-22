@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import useAuth from "../hooks/useAuth";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import * as Yup from "yup";
 // inital login credentials
@@ -50,9 +48,8 @@ const JwtLogin = () => {
         toast.success("Login successful!");
       } else {
         // Handle other status codes (e.g., 401 for unauthorized)
-
-        console.error("Login failed with status:", response.status);
         toast.error("Invalid credentials"); // Display an error notification
+        console.error("Login failed with status:", response.status);
       }
     } catch (error) {
       console.error("Incorrect Username/Email or Password:", error);
@@ -85,6 +82,7 @@ const JwtLogin = () => {
   };
   return (
     <>
+      <ToastContainer position="top-center" />
       <body
         class="account-page"
         style={{ width: "100%", margin: "0", padding: "0" }}
@@ -238,7 +236,6 @@ const JwtLogin = () => {
             </div>
           </div>
         </div>
-        <ToastContainer position="top-center" />
       </body>
     </>
   );
