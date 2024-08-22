@@ -133,20 +133,6 @@ const AllSale = () => {
 
               <div class="card table-list-card">
                 <div class="card-body">
-                  <div className="table-top">
-                    <div className="search-set">
-                      <div className="search-input">
-                        <input
-                          type="text"
-                          placeholder="Search by Customer Name"
-                          className="form-control"
-                          value={searchTerm}
-                          onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
                   <div class="table-responsive">
                     <table class="table  datanew">
                       <thead>
