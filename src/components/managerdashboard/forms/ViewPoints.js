@@ -327,12 +327,6 @@ const ViewPoints = () => {
               <div className="card-header">
                 <div className="header-container">
                   <h4 className="card-title">All POS Points</h4>
-                  <button
-                    className="add-admin-btn"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Add Points
-                  </button>
                 </div>
               </div>
 
