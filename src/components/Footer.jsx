@@ -1,12 +1,3 @@
-import {
-  Facebook,
-  Instagram,
-  MailOutline,
-  Phone,
-  Pinterest,
-  Room,
-  Twitter,
-} from "@material-ui/icons";
 import logo from "./oga1.png";
 
 const Footer = () => {

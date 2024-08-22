@@ -1,5 +1,3 @@
-import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import "./nav.css";
 import oga from "./correctlogo.png";
