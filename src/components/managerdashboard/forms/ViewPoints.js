@@ -350,7 +350,6 @@ const ViewPoints = () => {
                         <th>Point Name</th>
                         <th>Point Address</th>
                         <th>POS Operator</th>
-                        <th className="no-sort">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -365,20 +364,6 @@ const ViewPoints = () => {
                           <td>{point.pointname}</td>
                           <td>{point.address}</td>
                           <td>{point.posOperator}</td>
-                          <td className="action-table-data">
-                            <div className="edit-delete-action">
-                              <a className="me-2 p-2" href="#">
-                                <FaEdit className="edit-icon" />
-                              </a>
-                              <a
-                                className="confirm-text p-2"
-                                href="#"
-                                onClick={() => handleDelete(point._id)}
-                              >
-                                <FaTrash className="delete-icon" />
-                              </a>
-                            </div>
-                          </td>
                         </tr>
                       ))}
                     </tbody>
