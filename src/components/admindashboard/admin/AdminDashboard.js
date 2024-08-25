@@ -576,7 +576,6 @@ const AdminDashboard = () => {
                           <th>Transaction Type</th>
                           <th>Payment Status</th>
                           <th>Profit</th>
-                          <th class="text-center">Action</th>
                         </tr>
                       </thead>
                       <tbody className="sales-list">
@@ -618,19 +617,6 @@ const AdminDashboard = () => {
                             <td>{transaction.transactionType}</td>
                             <td>{transaction.paymentStatus}</td>
                             <td>₦{transaction.profit}</td>
-                            <td className="action-table-data">
-                              <div className="edit-delete-action">
-                                <a className="me-2 p-2" href="#">
-                                  <FaEdit className="edit-icon" />
-                                </a>
-                                <a
-                                  className="confirm-text p-2"
-                                  href="javascript:void(0);"
-                                >
-                                  <FaTrash className="delete-icon" />
-                                </a>
-                              </div>
-                            </td>
                           </tr>
                         ))}
                       </tbody>
