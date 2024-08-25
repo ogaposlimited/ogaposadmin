@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 // import useFetch from "hooks/useFetch";
-import { FaChevronLeft } from "react-icons/fa"; // Use this for a single chevron
+
 import { FaAngleDoubleLeft } from "react-icons/fa"; // Use this for double chevrons
 import { FaSearch } from "react-icons/fa";
 import { FiXCircle } from "react-icons/fi";
@@ -11,6 +11,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import "./TopNav.css";
 import { FiHelpCircle } from "react-icons/fi";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import logo from "./oga4.png";
 import axios from "axios";
@@ -78,8 +79,16 @@ const TopNav = () => {
                 }}
               />
             </a>
-            <a id="toggle_btn" href="javascript:void(0);">
-              <FaChevronLeft className="chevron-icon" />
+            <a
+              id="toggle_btn"
+              href="javascript:void(0);"
+              onClick={toggleSidebar}
+            >
+              {isSidebarOpen ? (
+                <FaChevronLeft className="chevron-icon" />
+              ) : (
+                <FaChevronRight className="chevron-icon" />
+              )}
             </a>
           </div>
 
