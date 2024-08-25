@@ -2679,7 +2679,7 @@ button:focus {
   .nav-item.dropdown.has-arrow.main-drop {
     display: none;
   }
-  
+
   .dropdown.mobile-user-menu {
     display: block;
   }
@@ -16089,12 +16089,12 @@ div#global-loader .whirly-loader:not(:required) {
     display: none;
   }
 }
-@media (max-width: 575px) {
+/* @media (max-width: 575px) {
   .sidebar,
   .sidebars {
     width: 100%;
   }
-}
+} */
 /* .sidebar.open {
   transform: translateX(0); 
 }
