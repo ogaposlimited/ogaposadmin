@@ -320,7 +320,7 @@ const AdminDashboard = () => {
                           {totalProfit.toLocaleString()}
                         </span>
                       </h5>
-                      <h6>Today's Profit</h6>
+                      <h6>Total Profit</h6>
                     </div>
                   </div>
                 </div>
