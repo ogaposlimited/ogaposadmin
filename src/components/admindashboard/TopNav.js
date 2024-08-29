@@ -28,9 +28,61 @@ const TopNav = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log("API URL:", apiUrl);
+
   // const toggleSidebar = () => {
   //   setIsSidebarOpen(!isSidebarOpen);
   // };
+  // const isValidToken = (jwtToken) => {
+  //   try {
+  //     const payload = JSON.parse(atob(jwtToken.split(".")[1])); // Decode JWT token payload
+  //     const expiration = payload.exp * 1000; // Convert expiration to milliseconds
+  //     return expiration > Date.now(); // Check if the token is still valid
+  //   } catch (error) {
+  //     return false; // If there's an error (e.g., token is malformed), consider it invalid
+  //   }
+  // };
+  const isValidToken = (jwtToken) => {
+    try {
+      const payload = JSON.parse(atob(jwtToken.split(".")[1])); // Decode JWT token payload
+      const expiration = payload.exp * 1000; // Convert expiration to milliseconds
+      console.log("Token Expiration Date:", new Date(expiration)); // Log expiration date
+      return expiration > Date.now(); // Check if the token is still valid
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return false; // If there's an error (e.g., token is malformed), consider it invalid
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      console.log("Fetching user...");
+      try {
+        const jwtToken = localStorage.getItem("jwtToken");
+        console.log("Is token valid:", isValidToken(jwtToken));
+        console.log("Stored JWT Token:", jwtToken);
+
+        if (jwtToken && isValidToken(jwtToken)) {
+          const response = await axios.get(`${apiUrl}/api/profile`, {
+            headers: {
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          });
+
+          const { user } = response.data;
+
+          console.log("User retrieved from the server:", user);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    })();
+  }, [apiUrl]);
+
+  useEffect(() => {
+    console.log("User from Auth Context:", user);
+  }, [user]);
 
   return (
     <body>
@@ -263,7 +315,7 @@ const TopNav = () => {
             </li>
             <li
               class="nav-item dropdown has-arrow main-drop"
-              style={{ zIndex: "10000" }}
+              style={{ zIndex: "1000" }}
             >
               <a
                 href="javascript:void(0);"

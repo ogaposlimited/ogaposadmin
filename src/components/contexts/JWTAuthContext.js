@@ -122,8 +122,6 @@ export const AuthProvider = ({ children }) => {
         role,
       });
 
-      console.log("Response data:", response.data);
-
       if (response.status === 200) {
         const { token, user } = response.data;
         console.log("Retrieved JWT Token:", token);
@@ -139,7 +137,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           console.error("Error setting JWT token:", error);
         }
-
+        setSession(token);
         // Dispatch the "LOGIN" action with the user data
         dispatch({
           type: "LOGIN",
@@ -219,7 +217,7 @@ export const AuthProvider = ({ children }) => {
 
         if (jwtToken && isValidToken(jwtToken)) {
           setSession(jwtToken);
-          const response = await axios.get(`${apiUrl}api/auth/profile`);
+          const response = await axios.get(`${apiUrl}/api/profile`);
           const { user } = response.data;
           console.log("User retrieved from the server:", user);
 
