@@ -208,15 +208,6 @@ const AllSale = () => {
                     <h6>Manage Your Sales</h6>
                   </div>
                 </div>
-
-                <div class="page-btn">
-                  <a
-                    className="force-mobile-button"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Add New Sales
-                  </a>
-                </div>
               </div>
 
               <div class="card table-list-card">
